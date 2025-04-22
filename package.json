@@ -1,0 +1,26 @@
+{
+  "name": "kalika",
+  "version": "1.0.0",
+  "description": "Kalika is a smart learning platform for SSLC and 2nd PUC students. Inspired by the Kannada word for \"learning,\" it offers personalized lessons, interactive quizzes, and progress tracking to make studying easier, smarter, and more engaging. Kalika helps students learn better, anytime, anywhere.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mithunurs17/kalika.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mithunurs17/kalika/issues"
+  },
+  "homepage": "https://github.com/mithunurs17/kalika#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.4"
+  }
+}
