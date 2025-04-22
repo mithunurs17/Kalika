@@ -93,72 +93,72 @@ export function LandingPage() {
       <section className="w-full py-12 md:py-24 lg:py-32">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
+            <div className="space-y-2 max-w-3xl mx-auto">
               <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Features</div>
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Everything You Need to Excel</h2>
-              <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Kalika combines modern learning technology with traditional NCERT curriculum to create the perfect study companion.
               </p>
             </div>
           </div>
           <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12">
             {/* Feature 1 */}
-            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md">
+            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md text-center">
               <div className="rounded-full bg-primary/20 p-2">
                 <Brain className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-bold">Gamified Learning</h3>
-              <p className="text-center text-muted-foreground">
+              <p className="text-muted-foreground">
                 Learn through games, quizzes, and challenges. Earn points and badges as you progress.
               </p>
             </div>
             {/* Feature 2 */}
-            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md">
+            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md text-center">
               <div className="rounded-full bg-primary/20 p-2">
                 <Languages className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-bold">Regional Languages</h3>
-              <p className="text-center text-muted-foreground">
+              <p className="text-muted-foreground">
                 Study in your preferred language with support for multiple Indian regional languages.
               </p>
             </div>
             {/* Feature 3 */}
-            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md">
+            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md text-center">
               <div className="rounded-full bg-primary/20 p-2">
                 <MessageSquare className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-bold">AI Chatbot</h3>
-              <p className="text-center text-muted-foreground">
+              <p className="text-muted-foreground">
                 Get 24/7 assistance with your questions through our intelligent AI chatbot.
               </p>
             </div>
             {/* Feature 4 */}
-            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md">
+            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md text-center">
               <div className="rounded-full bg-primary/20 p-2">
                 <Laptop className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-bold">Speech-to-Text</h3>
-              <p className="text-center text-muted-foreground">
+              <p className="text-muted-foreground">
                 Ask questions verbally and get detailed explanations for complex concepts.
               </p>
             </div>
             {/* Feature 5 */}
-            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md">
+            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md text-center">
               <div className="rounded-full bg-primary/20 p-2">
                 <Clock className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-bold">Pomodoro Timer</h3>
-              <p className="text-center text-muted-foreground">
+              <p className="text-muted-foreground">
                 Stay focused with integrated Pomodoro technique for optimal study sessions.
               </p>
             </div>
             {/* Feature 6 */}
-            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md">
+            <div className="flex flex-col items-center space-y-2 rounded-lg border p-6 shadow-sm transition-all hover:shadow-md text-center">
               <div className="rounded-full bg-primary/20 p-2">
                 <Trophy className="h-6 w-6 text-primary" />
               </div>
               <h3 className="text-xl font-bold">Progress Tracking</h3>
-              <p className="text-center text-muted-foreground">
+              <p className="text-muted-foreground">
                 Monitor your learning journey with detailed analytics and performance insights.
               </p>
             </div>
@@ -170,13 +170,13 @@ export function LandingPage() {
       <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
+            <div className="space-y-2 max-w-2xl mx-auto">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Ready to Excel in Your Exams?</h2>
-              <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Join thousands of students who are already preparing smarter with Kalika.
               </p>
             </div>
-            <div className="flex flex-col gap-2 min-[400px]:flex-row">
+            <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
               <Button size="lg" asChild>
                 <Link href="/register">Sign Up Now</Link>
               </Button>
