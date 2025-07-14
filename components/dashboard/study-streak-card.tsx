@@ -1,72 +1,64 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Flame } from "lucide-react";
+import { useAuth } from "@/components/providers/auth-provider";
+import { useEffect, useState } from "react";
+
+function calculateStreak(progress: any[]) {
+  // Get unique days with progress
+  const days = Array.from(new Set(progress.map(p => p.last_updated && new Date(p.last_updated).toDateString()).filter(Boolean)));
+  if (days.length === 0) return 0;
+  // Sort descending
+  days.sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+  let streak = 1;
+  for (let i = 1; i < days.length; i++) {
+    const prev = new Date(days[i - 1]);
+    const curr = new Date(days[i]);
+    const diff = (prev.getTime() - curr.getTime()) / (1000 * 60 * 60 * 24);
+    if (diff === 1) {
+      streak++;
+    } else {
+      break;
+    }
+  }
+  return streak;
+}
 
 export function StudyStreakCard() {
-  // Mock data - in a real app, these would come from the backend
-  const streakDays = 7;
-  const totalStudyTime = "32h 15m";
-  
-  // Generate array of days for the last week
-  const lastWeek = [...Array(7)].map((_, i) => {
-    const d = new Date();
-    d.setDate(d.getDate() - 6 + i);
-    return {
-      date: d.getDate(),
-      day: d.toLocaleString("default", { weekday: "short" }),
-      didStudy: Math.random() > 0.3, // Randomly determine if studied that day for demo
-    };
-  });
+  const { user } = useAuth();
+  const [progress, setProgress] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProgress() {
+      if (!user?.id) return;
+      setLoading(true);
+      const res = await fetch(`/api/progress?user_id=${user.id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setProgress(data.progress);
+      }
+      setLoading(false);
+    }
+    fetchProgress();
+  }, [user?.id]);
+
+  const streak = loading ? 0 : calculateStreak(progress);
 
   return (
     <Card>
-      <CardHeader className="pb-2">
-        <CardTitle className="flex items-center gap-2">
-          <Flame className="h-5 w-5 text-orange-500" />
-          Study Streak
-        </CardTitle>
-        <CardDescription>Your consistent learning record</CardDescription>
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <div>
+          <CardTitle className="text-sm font-medium">Study Streak</CardTitle>
+          <CardDescription>Consecutive days studied</CardDescription>
+        </div>
+        <Flame className="h-5 w-5 text-orange-500 animate-pulse" />
       </CardHeader>
       <CardContent>
-        <div className="flex items-center justify-between">
-          <div className="text-center">
-            <div className="text-3xl font-bold">{streakDays}</div>
-            <div className="text-xs text-muted-foreground">Days streak</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold">{totalStudyTime}</div>
-            <div className="text-xs text-muted-foreground">Total study time</div>
-          </div>
-        </div>
-        
-        <div className="mt-6">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium">This week</span>
-          </div>
-          <div className="grid grid-cols-7 gap-1">
-            {lastWeek.map((day) => (
-              <div key={day.day} className="flex flex-col items-center">
-                <div className="text-xs text-muted-foreground">{day.day}</div>
-                <div className="text-xs">{day.date}</div>
-                <div 
-                  className={`mt-1 h-8 w-8 rounded-full flex items-center justify-center ${
-                    day.didStudy 
-                      ? "bg-primary/20 text-primary" 
-                      : "bg-muted text-muted-foreground"
-                  }`}
-                >
-                  {day.didStudy && <Flame className="h-4 w-4" />}
-                </div>
-              </div>
-            ))}
-          </div>
+        <div className="flex items-center gap-2">
+          <span className="text-3xl font-bold">{loading ? '...' : streak}</span>
+          <span className="text-xs text-muted-foreground">days</span>
         </div>
       </CardContent>
     </Card>

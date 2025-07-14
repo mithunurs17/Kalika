@@ -1,111 +1,75 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { BookCheck, Calendar } from "lucide-react";
-import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useAuth } from "@/components/providers/auth-provider";
+import { useEffect, useState } from "react";
+import { Calendar, Timer, CheckCircle, XCircle } from "lucide-react";
 
-interface Quiz {
-  id: number;
-  subject: string;
-  title: string;
-  date: string;
-  timeLeft: string;
-  difficulty: "easy" | "medium" | "hard";
+function formatDate(dateStr: string) {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }
 
-// Mock data - in a real app, this would come from the backend
-const upcomingQuizzes: Quiz[] = [
-  {
-    id: 1,
-    subject: "Physics",
-    title: "Wave Optics",
-    date: "Tomorrow, 10:00 AM",
-    timeLeft: "23h 45m",
-    difficulty: "medium",
-  },
-  {
-    id: 2,
-    subject: "Mathematics",
-    title: "Calculus Fundamentals",
-    date: "Aug 15, 2:00 PM",
-    timeLeft: "3d 4h",
-    difficulty: "hard",
-  },
-  {
-    id: 3,
-    subject: "Chemistry",
-    title: "Periodic Table",
-    date: "Aug 18, 11:30 AM",
-    timeLeft: "6d 2h",
-    difficulty: "easy",
-  },
-];
-
 export function UpcomingQuizzesCard() {
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case "easy":
-        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200";
-      case "medium":
-        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200";
-      case "hard":
-        return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200";
-      default:
-        return "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200";
+  const { user } = useAuth();
+  const [quizzes, setQuizzes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchQuizzes() {
+      if (!user?.id) return;
+      setLoading(true);
+      const res = await fetch(`/api/quiz?user_id=${user.id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setQuizzes(data.quizzes || []);
+      }
+      setLoading(false);
     }
-  };
+    fetchQuizzes();
+  }, [user?.id]);
+
+  // Filter for upcoming quizzes (date > today)
+  const now = new Date();
+  const upcoming = quizzes.filter(q => q.date && new Date(q.date) > now);
 
   return (
     <Card>
-      <CardHeader className="pb-2">
-        <CardTitle className="flex items-center gap-2">
-          <BookCheck className="h-5 w-5 text-primary" />
-          Upcoming Quizzes
-        </CardTitle>
-        <CardDescription>Prepare for your scheduled assessments</CardDescription>
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <div>
+          <CardTitle className="text-sm font-medium">Upcoming Quizzes</CardTitle>
+          <CardDescription>Don't miss your next test</CardDescription>
+        </div>
+        <Calendar className="h-5 w-5 text-muted-foreground" />
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
-          {upcomingQuizzes.map((quiz) => (
-            <div key={quiz.id} className="rounded-lg border p-3">
-              <div className="flex justify-between items-start">
+          {loading ? (
+            <div className="text-muted-foreground text-sm">Loading...</div>
+          ) : upcoming.length === 0 ? (
+            <div className="text-muted-foreground text-sm">No upcoming quizzes</div>
+          ) : (
+            upcoming.map((quiz, idx) => (
+              <div key={quiz.id || idx} className="flex items-center justify-between border-b last:border-b-0 pb-2 last:pb-0">
                 <div>
-                  <Badge variant="outline" className="mb-1">
-                    {quiz.subject}
-                  </Badge>
-                  <h4 className="font-medium">{quiz.title}</h4>
+                  <div className="font-medium text-base">{quiz.subject || 'Quiz'}</div>
+                  <div className="text-xs text-muted-foreground">{quiz.topic || ''}</div>
                 </div>
-                <Badge className={getDifficultyColor(quiz.difficulty)}>
-                  {quiz.difficulty.charAt(0).toUpperCase() + quiz.difficulty.slice(1)}
-                </Badge>
-              </div>
-              <div className="mt-2 flex items-center justify-between">
-                <div className="flex items-center text-xs text-muted-foreground">
-                  <Calendar className="mr-1 h-3 w-3" />
-                  {quiz.date}
-                </div>
-                <div className="text-xs font-medium text-orange-600 dark:text-orange-400">
-                  {quiz.timeLeft} left
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-muted-foreground">{quiz.date ? formatDate(quiz.date) : '-'}</span>
+                  {quiz.status === 'completed' ? (
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                  ) : quiz.status === 'missed' ? (
+                    <XCircle className="h-4 w-4 text-red-500" />
+                  ) : (
+                    <Timer className="h-4 w-4 text-yellow-500" />
+                  )}
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </CardContent>
-      <CardFooter>
-        <Button variant="outline" className="w-full" asChild>
-          <Link href="/dashboard/quizzes">View All Quizzes</Link>
-        </Button>
-      </CardFooter>
     </Card>
   );
 }

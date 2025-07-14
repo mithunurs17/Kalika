@@ -1,108 +1,48 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { BookOpen, ArrowRightCircle } from "lucide-react";
-
-interface SubjectProgress {
-  id: number;
-  name: string;
-  progress: number;
-  chaptersDone: number;
-  totalChapters: number;
-}
-
-// Mock data - in a real app, this would come from the backend
-const subjectProgress: SubjectProgress[] = [
-  {
-    id: 1,
-    name: "Mathematics",
-    progress: 68,
-    chaptersDone: 8,
-    totalChapters: 12,
-  },
-  {
-    id: 2,
-    name: "Physics",
-    progress: 42,
-    chaptersDone: 5,
-    totalChapters: 12,
-  },
-  {
-    id: 3,
-    name: "Chemistry",
-    progress: 33,
-    chaptersDone: 4,
-    totalChapters: 12,
-  },
-  {
-    id: 4,
-    name: "Biology",
-    progress: 25,
-    chaptersDone: 3,
-    totalChapters: 12,
-  },
-];
+import { useAuth } from "@/components/providers/auth-provider";
+import { useEffect, useState } from "react";
+import { BookOpen } from "lucide-react";
 
 export function SyllabusProgressCard() {
-  // Calculate overall progress
-  const overallProgress = Math.round(
-    subjectProgress.reduce((acc, subject) => acc + subject.progress, 0) / subjectProgress.length
-  );
+  const { user } = useAuth();
+  const [progress, setProgress] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProgress() {
+      if (!user?.id) return;
+      setLoading(true);
+      const res = await fetch(`/api/progress?user_id=${user.id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setProgress(data.progress);
+      }
+      setLoading(false);
+    }
+    fetchProgress();
+  }, [user?.id]);
+
+  // Calculate overall syllabus progress (average of all subjects)
+  const avgProgress = progress.length > 0 ? Math.round(progress.reduce((sum, p) => sum + (p.progress_percent || 0), 0) / progress.length) : 0;
 
   return (
-    <Card className="col-span-2">
-      <CardHeader className="pb-2">
-        <div className="flex items-center justify-between">
-          <div className="space-y-1">
-            <CardTitle className="flex items-center gap-2">
-              <BookOpen className="h-5 w-5 text-primary" />
-              Syllabus Progress
-            </CardTitle>
-            <CardDescription>Track your curriculum completion</CardDescription>
-          </div>
-          <div className="flex flex-col items-end">
-            <span className="text-2xl font-bold">{overallProgress}%</span>
-            <span className="text-xs text-muted-foreground">Overall progress</span>
-          </div>
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <div>
+          <CardTitle className="text-sm font-medium">Syllabus Progress</CardTitle>
+          <CardDescription>Overall completion</CardDescription>
         </div>
+        <BookOpen className="h-5 w-5 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
-          {subjectProgress.map((subject) => (
-            <div key={subject.id} className="space-y-1">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <h4 className="text-sm font-medium">{subject.name}</h4>
-                  <span className="text-xs text-muted-foreground">
-                    {subject.chaptersDone}/{subject.totalChapters} chapters
-                  </span>
-                </div>
-                <span className="text-sm font-medium">{subject.progress}%</span>
-              </div>
-              <Progress value={subject.progress} className="h-2" />
-            </div>
-          ))}
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-2xl font-bold">{loading ? '...' : `${avgProgress}%`}</span>
+          <span className="text-xs text-muted-foreground">{progress.length} subjects</span>
         </div>
-        
-        <div className="mt-4 flex items-center justify-between rounded-lg border p-3">
-          <div className="flex items-center gap-2">
-            <div className="rounded-full bg-green-100 p-1 dark:bg-green-900">
-              <BookOpen className="h-4 w-4 text-green-600 dark:text-green-400" />
-            </div>
-            <div>
-              <h4 className="text-sm font-medium">Continue where you left off</h4>
-              <p className="text-xs text-muted-foreground">Physics Chapter 6: Wave Optics</p>
-            </div>
-          </div>
-          <ArrowRightCircle className="h-5 w-5 text-primary cursor-pointer" />
-        </div>
+        <Progress value={loading ? 0 : avgProgress} className="h-3" />
       </CardContent>
     </Card>
   );

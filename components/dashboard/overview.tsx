@@ -7,121 +7,117 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-import { useTheme } from "next-themes";
-
-// Sample data - in a real app, this would come from an API
-const studyData = [
-  { day: "Mon", hours: 2.5 },
-  { day: "Tue", hours: 1.8 },
-  { day: "Wed", hours: 3.2 },
-  { day: "Thu", hours: 2.1 },
-  { day: "Fri", hours: 2.8 },
-  { day: "Sat", hours: 4.5 },
-  { day: "Sun", hours: 3.6 },
-];
-
-// Sample subjects progress
-const subjects = [
-  { name: "Mathematics", progress: 75, color: "bg-chart-1" },
-  { name: "Physics", progress: 62, color: "bg-chart-2" },
-  { name: "Chemistry", progress: 48, color: "bg-chart-3" },
-  { name: "Biology", progress: 55, color: "bg-chart-4" },
-  { name: "English", progress: 87, color: "bg-chart-5" },
-];
+import { useAuth } from "@/components/providers/auth-provider";
+import { useEffect, useState } from "react";
+import { TrendingUp, TrendingDown, Target, Clock, BookOpen } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
 
 export function DashboardOverview() {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
+  const { user } = useAuth();
+  const [progress, setProgress] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProgress() {
+      if (!user?.id) return;
+      setLoading(true);
+      const res = await fetch(`/api/progress?user_id=${user.id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setProgress(data.progress);
+      }
+      setLoading(false);
+    }
+    fetchProgress();
+  }, [user?.id]);
+
+  // Aggregate stats
+  const totalSubjects = progress.length;
+  const totalChapters = progress.reduce((sum, p) => sum + (p.chapter ? 1 : 0), 0);
+  const avgProgress = progress.length > 0 ? Math.round(progress.reduce((sum, p) => sum + (p.progress_percent || 0), 0) / progress.length) : 0;
+  const totalPoints = progress.reduce((sum, p) => sum + (p.points || 0), 0);
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-      <Card className="lg:col-span-4">
-        <CardHeader>
-          <CardTitle>Weekly Study Hours</CardTitle>
-          <CardDescription>
-            Your study time distribution for the last 7 days
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={studyData}
-                margin={{
-                  top: 5,
-                  right: 30,
-                  left: 20,
-                  bottom: 5,
-                }}
-              >
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke={isDark ? "#2d2d2d" : "#e5e5e5"}
-                />
-                <XAxis
-                  dataKey="day"
-                  tick={{ fill: isDark ? "#e5e5e5" : "#374151" }}
-                />
-                <YAxis
-                  tick={{ fill: isDark ? "#e5e5e5" : "#374151" }}
-                  label={{
-                    value: "Hours",
-                    angle: -90,
-                    position: "insideLeft",
-                    fill: isDark ? "#e5e5e5" : "#374151",
-                  }}
-                />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: isDark ? "#1a1a1a" : "#fff",
-                    border: `1px solid ${isDark ? "#2d2d2d" : "#e5e5e5"}`,
-                    color: isDark ? "#e5e5e5" : "#374151",
-                  }}
-                />
-                <Bar dataKey="hours" fill="hsl(var(--chart-1))" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
-      
-      <Card className="lg:col-span-3">
-        <CardHeader>
-          <CardTitle>Subject Progress</CardTitle>
-          <CardDescription>
-            Your mastery level in each subject
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-5">
-            {subjects.map((subject) => (
-              <div key={subject.name} className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium">{subject.name}</span>
-                  <span className="text-sm text-muted-foreground">
-                    {subject.progress}%
-                  </span>
-                </div>
-                <div className="h-2 w-full rounded-full bg-secondary">
-                  <div
-                    className={`h-2 rounded-full ${subject.color}`}
-                    style={{ width: `${subject.progress}%` }}
-                  />
-                </div>
+    <div className="space-y-6">
+      {/* Study Stats Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Subjects</CardTitle>
+            <BookOpen className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{loading ? '...' : totalSubjects}</div>
+            <p className="text-xs text-muted-foreground">
+              Tracked subjects
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Chapters</CardTitle>
+            <Target className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{loading ? '...' : totalChapters}</div>
+            <p className="text-xs text-muted-foreground">
+              Chapters tracked
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Avg. Progress</CardTitle>
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{loading ? '...' : `${avgProgress}%`}</div>
+            <p className="text-xs text-muted-foreground">
+              Across all subjects
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Points</CardTitle>
+            <Clock className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{loading ? '...' : totalPoints}</div>
+            <p className="text-xs text-muted-foreground">
+              Earned so far
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Subject Progress Bars */}
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {(loading ? Array(3).fill(null) : progress).map((subject, idx) => (
+          <Card key={subject ? subject.subject : idx} className="animate-fade-in-up">
+            <CardHeader>
+              <CardTitle>{subject ? subject.subject : '...'}</CardTitle>
+              <CardDescription>
+                {subject ? (subject.chapter ? `Chapter: ${subject.chapter}` : 'No chapter') : 'Loading...'}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium">Progress</span>
+                <Badge variant="secondary" className="text-xs">
+                  {subject ? `${subject.progress_percent || 0}%` : '...'}
+                </Badge>
               </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              <Progress value={subject ? subject.progress_percent : 0} className="h-2" />
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-xs text-muted-foreground">Points: {subject ? subject.points : '...'}</span>
+                <span className="text-xs text-muted-foreground">Last updated: {subject ? (subject.last_updated ? new Date(subject.last_updated).toLocaleDateString() : '-') : '...'}</span>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }

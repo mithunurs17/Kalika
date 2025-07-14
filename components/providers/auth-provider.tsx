@@ -2,12 +2,12 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 
+// User type
 type User = {
   id: string;
   name: string;
   email: string;
   class: string;
-  points: number;
 } | null;
 
 type AuthContextType = {
@@ -22,36 +22,32 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
+  // Optionally, persist user session in localStorage (for demo)
   useEffect(() => {
-    // Check if user is logged in (from localStorage in this example)
-    const storedUser = localStorage.getItem("kalika_user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    const stored = localStorage.getItem("kalika_user");
+    if (stored) {
+      setUser(JSON.parse(stored));
     }
-    setIsLoading(false);
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      // In a real app, this would be an API call to your backend
-      // For demo purposes, we'll simulate a successful login
-      const mockUser = {
-        id: "user_" + Math.random().toString(36).substr(2, 9),
-        name: email.split("@")[0],
-        email,
-        class: "10th", // Default class
-        points: 0,
-      };
-      
-      // Store user in localStorage
-      localStorage.setItem("kalika_user", JSON.stringify(mockUser));
-      setUser(mockUser);
-      return true;
-    } catch (error) {
-      console.error("Login failed:", error);
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (res.ok && data.user) {
+        setUser(data.user);
+        localStorage.setItem("kalika_user", JSON.stringify(data.user));
+        return true;
+      }
+      return false;
+    } catch (e) {
       return false;
     } finally {
       setIsLoading(false);
@@ -59,29 +55,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const register = async (
-    name: string, 
-    email: string, 
-    password: string, 
+    name: string,
+    email: string,
+    password: string,
     studentClass: string
   ): Promise<boolean> => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      // In a real app, this would be an API call to your backend
-      // For demo purposes, we'll simulate a successful registration
-      const mockUser = {
-        id: "user_" + Math.random().toString(36).substr(2, 9),
-        name,
-        email,
-        class: studentClass,
-        points: 0,
-      };
-      
-      // Store user in localStorage
-      localStorage.setItem("kalika_user", JSON.stringify(mockUser));
-      setUser(mockUser);
-      return true;
-    } catch (error) {
-      console.error("Registration failed:", error);
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password, class: studentClass }),
+      });
+      if (res.ok) {
+        // Auto-login after registration
+        return await login(email, password);
+      }
+      return false;
+    } catch (e) {
       return false;
     } finally {
       setIsLoading(false);
@@ -89,8 +80,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = () => {
-    localStorage.removeItem("kalika_user");
     setUser(null);
+    localStorage.removeItem("kalika_user");
   };
 
   return (

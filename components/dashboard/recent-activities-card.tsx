@@ -1,95 +1,70 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { BookCheck, BookOpen, Trophy, Timer } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useAuth } from "@/components/providers/auth-provider";
+import { useEffect, useState } from "react";
+import { Clock, BookOpen, CheckCircle } from "lucide-react";
 
-// Mock data - in a real app, this would come from the backend
-const activities = [
-  {
-    id: 1,
-    type: "quiz",
-    icon: BookCheck,
-    title: "Completed Physics Quiz",
-    score: "8/10",
-    time: "2h ago",
-  },
-  {
-    id: 2,
-    type: "lesson",
-    icon: BookOpen,
-    title: "Studied Chemistry Chapter 3",
-    duration: "45 mins",
-    time: "4h ago",
-  },
-  {
-    id: 3,
-    type: "achievement",
-    icon: Trophy,
-    title: "Earned 'Chemistry Genius' Badge",
-    points: "+50 pts",
-    time: "Yesterday",
-  },
-  {
-    id: 4,
-    type: "pomodoro",
-    icon: Timer,
-    title: "Completed Pomodoro Session",
-    duration: "25 mins",
-    time: "Yesterday",
-  },
-];
+function formatDateTime(dateStr: string) {
+  const d = new Date(dateStr);
+  return d.toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+}
 
 export function RecentActivitiesCard() {
+  const { user } = useAuth();
+  const [activities, setActivities] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchActivities() {
+      if (!user?.id) return;
+      setLoading(true);
+      const res = await fetch(`/api/progress?user_id=${user.id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setActivities(data.progress || []);
+      }
+      setLoading(false);
+    }
+    fetchActivities();
+  }, [user?.id]);
+
+  // Sort by last_updated desc
+  const sorted = [...activities].sort((a, b) => new Date(b.last_updated).getTime() - new Date(a.last_updated).getTime());
+  const recent = sorted.slice(0, 5);
+
   return (
     <Card>
-      <CardHeader className="pb-2">
-        <CardTitle>Recent Activities</CardTitle>
-        <CardDescription>Your latest learning activities</CardDescription>
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <div>
+          <CardTitle className="text-sm font-medium">Recent Activities</CardTitle>
+          <CardDescription>Latest study sessions & progress</CardDescription>
+        </div>
+        <Clock className="h-5 w-5 text-muted-foreground" />
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
-          {activities.map((activity) => (
-            <div key={activity.id} className="flex items-start gap-3">
-              <div className={`rounded-full p-2 ${getActivityColor(activity.type)}`}>
-                <activity.icon className="h-4 w-4" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-medium">{activity.title}</h4>
-                  <span className="text-xs text-muted-foreground">{activity.time}</span>
+        <div className="space-y-3">
+          {loading ? (
+            <div className="text-muted-foreground text-sm">Loading...</div>
+          ) : recent.length === 0 ? (
+            <div className="text-muted-foreground text-sm">No recent activities</div>
+          ) : (
+            recent.map((activity, idx) => (
+              <div key={activity.id || idx} className="flex items-center gap-3 border-b last:border-b-0 pb-2 last:pb-0">
+                <BookOpen className="h-4 w-4 text-primary" />
+                <div className="flex-1">
+                  <div className="font-medium text-base">{activity.subject || 'Subject'}</div>
+                  <div className="text-xs text-muted-foreground">{activity.chapter ? `Chapter: ${activity.chapter}` : ''}</div>
                 </div>
-                <div className="mt-1 text-xs text-muted-foreground">
-                  {activity.score && <span>Score: {activity.score}</span>}
-                  {activity.duration && <span>Duration: {activity.duration}</span>}
-                  {activity.points && <span>{activity.points}</span>}
+                <div className="flex flex-col items-end">
+                  <span className="text-xs text-muted-foreground">{activity.last_updated ? formatDateTime(activity.last_updated) : '-'}</span>
+                  <span className="text-xs text-green-600 flex items-center gap-1">{activity.progress_percent ? `${activity.progress_percent}%` : ''} <CheckCircle className="h-3 w-3" /></span>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </CardContent>
     </Card>
   );
-}
-
-// Helper function to get appropriate background color based on activity type
-function getActivityColor(type: string): string {
-  switch (type) {
-    case "quiz":
-      return "bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-300";
-    case "lesson":
-      return "bg-green-100 dark:bg-green-950 text-green-600 dark:text-green-300";
-    case "achievement":
-      return "bg-yellow-100 dark:bg-yellow-950 text-yellow-600 dark:text-yellow-300";
-    case "pomodoro":
-      return "bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-300";
-    default:
-      return "bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300";
-  }
 }

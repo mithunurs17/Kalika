@@ -1,0 +1,893 @@
+{
+  "class": "10th Grade (SSLC)",
+  "subjects": [
+    {
+      "name": "Mathematics",
+      "chapters": [
+        {
+          "number": 1,
+          "name": "Real Numbers",
+          "topics": [
+            "Euclid's Division Lemma",
+            "Fundamental Theorem of Arithmetic",
+            "Irrational Numbers",
+            "Decimal Expansions",
+            "Rational Numbers"
+          ],
+          "learning_objectives": [
+            "Understand the real number system",
+            "Apply Euclid's division algorithm",
+            "Prove irrationality of numbers",
+            "Understand decimal expansions",
+            "Distinguish between rational and irrational numbers"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 2,
+          "name": "Polynomials",
+          "topics": [
+            "Zeroes of Polynomials",
+            "Division Algorithm",
+            "Geometric Meaning of Zeroes",
+            "Relationship between Zeroes and Coefficients",
+            "Factorization of Polynomials"
+          ],
+          "learning_objectives": [
+            "Find zeroes of polynomials",
+            "Understand polynomial division",
+            "Graph polynomials",
+            "Understand zero-coefficient relationships",
+            "Factorize polynomials"
+          ],
+          "duration_hours": 15
+        },
+        {
+          "number": 3,
+          "name": "Pair of Linear Equations in Two Variables",
+          "topics": [
+            "Graphical Method",
+            "Algebraic Method",
+            "Substitution Method",
+            "Elimination Method",
+            "Cross Multiplication Method",
+            "Word Problems"
+          ],
+          "learning_objectives": [
+            "Solve linear equations graphically",
+            "Use algebraic methods to solve equations",
+            "Apply substitution and elimination methods",
+            "Solve real-world problems using linear equations",
+            "Understand consistency and inconsistency"
+          ],
+          "duration_hours": 18
+        },
+        {
+          "number": 4,
+          "name": "Quadratic Equations",
+          "topics": [
+            "Standard Form of Quadratic Equation",
+            "Factorization Method",
+            "Completing the Square",
+            "Quadratic Formula",
+            "Nature of Roots",
+            "Word Problems"
+          ],
+          "learning_objectives": [
+            "Identify quadratic equations",
+            "Solve by factorization",
+            "Complete the square method",
+            "Use quadratic formula",
+            "Determine nature of roots",
+            "Solve real-world problems"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 5,
+          "name": "Arithmetic Progressions",
+          "topics": [
+            "Introduction to AP",
+            "Common Difference",
+            "nth Term of AP",
+            "Sum of n Terms",
+            "Word Problems"
+          ],
+          "learning_objectives": [
+            "Understand arithmetic progressions",
+            "Find common difference",
+            "Calculate nth term",
+            "Find sum of n terms",
+            "Apply AP in real situations"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 6,
+          "name": "Triangles",
+          "topics": [
+            "Similarity of Triangles",
+            "Basic Proportionality Theorem",
+            "Pythagoras Theorem",
+            "Converse of Pythagoras Theorem",
+            "Similarity Criteria"
+          ],
+          "learning_objectives": [
+            "Understand triangle similarity",
+            "Apply basic proportionality theorem",
+            "Use Pythagoras theorem",
+            "Prove similarity criteria",
+            "Solve problems using triangle properties"
+          ],
+          "duration_hours": 20
+        },
+        {
+          "number": 7,
+          "name": "Coordinate Geometry",
+          "topics": [
+            "Distance Formula",
+            "Section Formula",
+            "Midpoint Formula",
+            "Area of Triangle",
+            "Collinearity of Points"
+          ],
+          "learning_objectives": [
+            "Calculate distance between points",
+            "Find coordinates using section formula",
+            "Determine midpoint",
+            "Calculate area of triangle",
+            "Check collinearity"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 8,
+          "name": "Introduction to Trigonometry",
+          "topics": [
+            "Trigonometric Ratios",
+            "Trigonometric Identities",
+            "Complementary Angles",
+            "Trigonometric Tables",
+            "Applications"
+          ],
+          "learning_objectives": [
+            "Define trigonometric ratios",
+            "Use trigonometric identities",
+            "Understand complementary angles",
+            "Use trigonometric tables",
+            "Apply trigonometry in problems"
+          ],
+          "duration_hours": 18
+        },
+        {
+          "number": 9,
+          "name": "Applications of Trigonometry",
+          "topics": [
+            "Heights and Distances",
+            "Angle of Elevation",
+            "Angle of Depression",
+            "Real-life Applications"
+          ],
+          "learning_objectives": [
+            "Calculate heights and distances",
+            "Understand angles of elevation and depression",
+            "Apply trigonometry in real situations",
+            "Solve practical problems"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 10,
+          "name": "Circles",
+          "topics": [
+            "Tangent to a Circle",
+            "Number of Tangents from a Point",
+            "Length of Tangent",
+            "Secant and Tangent",
+            "Properties of Tangents"
+          ],
+          "learning_objectives": [
+            "Understand tangent properties",
+            "Find number of tangents",
+            "Calculate tangent length",
+            "Apply circle properties",
+            "Solve circle problems"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 11,
+          "name": "Constructions",
+          "topics": [
+            "Division of Line Segment",
+            "Construction of Triangles",
+            "Construction of Tangents",
+            "Geometric Constructions"
+          ],
+          "learning_objectives": [
+            "Divide line segments",
+            "Construct triangles",
+            "Construct tangents",
+            "Perform geometric constructions"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 12,
+          "name": "Areas Related to Circles",
+          "topics": [
+            "Area of Circle",
+            "Area of Sector",
+            "Area of Segment",
+            "Perimeter of Circle",
+            "Combined Areas"
+          ],
+          "learning_objectives": [
+            "Calculate circle area",
+            "Find sector area",
+            "Determine segment area",
+            "Calculate perimeter",
+            "Solve combined area problems"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 13,
+          "name": "Surface Areas and Volumes",
+          "topics": [
+            "Surface Area of Cubes",
+            "Surface Area of Cuboids",
+            "Surface Area of Cylinders",
+            "Surface Area of Cones",
+            "Surface Area of Spheres",
+            "Volume of Solids",
+            "Combined Solids"
+          ],
+          "learning_objectives": [
+            "Calculate surface areas",
+            "Find volumes of solids",
+            "Understand combined solids",
+            "Apply formulas correctly",
+            "Solve real-world problems"
+          ],
+          "duration_hours": 20
+        },
+        {
+          "number": 14,
+          "name": "Statistics",
+          "topics": [
+            "Mean of Grouped Data",
+            "Median of Grouped Data",
+            "Mode of Grouped Data",
+            "Cumulative Frequency",
+            "Graphical Representation"
+          ],
+          "learning_objectives": [
+            "Calculate mean of grouped data",
+            "Find median of grouped data",
+            "Determine mode of grouped data",
+            "Use cumulative frequency",
+            "Represent data graphically"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 15,
+          "name": "Probability",
+          "topics": [
+            "Theoretical Probability",
+            "Experimental Probability",
+            "Probability of Events",
+            "Complementary Events",
+            "Probability Applications"
+          ],
+          "learning_objectives": [
+            "Understand theoretical probability",
+            "Calculate experimental probability",
+            "Find probability of events",
+            "Use complementary events",
+            "Apply probability in real situations"
+          ],
+          "duration_hours": 12
+        }
+      ]
+    },
+    {
+      "name": "Science",
+      "chapters": [
+        {
+          "number": 1,
+          "name": "Chemical Reactions and Equations",
+          "topics": [
+            "Chemical Equations",
+            "Balancing Chemical Equations",
+            "Types of Chemical Reactions",
+            "Oxidation and Reduction",
+            "Effects of Oxidation"
+          ],
+          "learning_objectives": [
+            "Write and balance chemical equations",
+            "Identify different types of reactions",
+            "Understand redox reactions",
+            "Apply conservation of mass",
+            "Recognize oxidation effects"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 2,
+          "name": "Acids, Bases and Salts",
+          "topics": [
+            "Properties of Acids and Bases",
+            "pH Scale",
+            "Neutralization Reactions",
+            "Salts and Their Properties",
+            "Indicators"
+          ],
+          "learning_objectives": [
+            "Understand acid-base properties",
+            "Use pH scale",
+            "Perform neutralization reactions",
+            "Study salt properties",
+            "Use indicators"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 3,
+          "name": "Metals and Non-Metals",
+          "topics": [
+            "Physical Properties",
+            "Chemical Properties",
+            "Reactivity Series",
+            "Extraction of Metals",
+            "Corrosion"
+          ],
+          "learning_objectives": [
+            "Compare metal and non-metal properties",
+            "Understand reactivity series",
+            "Learn metal extraction methods",
+            "Study corrosion",
+            "Apply knowledge in daily life"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 4,
+          "name": "Carbon and its Compounds",
+          "topics": [
+            "Bonding in Carbon",
+            "Versatile Nature of Carbon",
+            "Saturated and Unsaturated Compounds",
+            "Functional Groups",
+            "Homologous Series"
+          ],
+          "learning_objectives": [
+            "Understand carbon bonding",
+            "Study carbon compounds",
+            "Identify functional groups",
+            "Learn homologous series",
+            "Apply organic chemistry concepts"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 5,
+          "name": "Periodic Classification of Elements",
+          "topics": [
+            "Mendeleev's Periodic Table",
+            "Modern Periodic Table",
+            "Periodic Properties",
+            "Trends in Periodic Table"
+          ],
+          "learning_objectives": [
+            "Understand periodic classification",
+            "Study modern periodic table",
+            "Learn periodic properties",
+            "Identify periodic trends"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 6,
+          "name": "Life Processes",
+          "topics": [
+            "Nutrition",
+            "Respiration",
+            "Transportation",
+            "Excretion",
+            "Control and Coordination"
+          ],
+          "learning_objectives": [
+            "Understand life processes",
+            "Study nutrition in organisms",
+            "Learn about respiration",
+            "Understand transportation",
+            "Study excretion and coordination"
+          ],
+          "duration_hours": 18
+        },
+        {
+          "number": 7,
+          "name": "Control and Coordination",
+          "topics": [
+            "Nervous System",
+            "Endocrine System",
+            "Hormones",
+            "Reflex Actions",
+            "Plant Hormones"
+          ],
+          "learning_objectives": [
+            "Understand nervous system",
+            "Study endocrine system",
+            "Learn about hormones",
+            "Understand reflex actions",
+            "Study plant coordination"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 8,
+          "name": "How do Organisms Reproduce",
+          "topics": [
+            "Asexual Reproduction",
+            "Sexual Reproduction",
+            "Reproduction in Plants",
+            "Reproduction in Animals",
+            "Reproductive Health"
+          ],
+          "learning_objectives": [
+            "Understand reproduction types",
+            "Study plant reproduction",
+            "Learn animal reproduction",
+            "Understand reproductive health",
+            "Apply knowledge responsibly"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 9,
+          "name": "Heredity and Evolution",
+          "topics": [
+            "Inheritance",
+            "Mendel's Laws",
+            "Sex Determination",
+            "Evolution",
+            "Natural Selection"
+          ],
+          "learning_objectives": [
+            "Understand inheritance",
+            "Study Mendel's laws",
+            "Learn sex determination",
+            "Understand evolution",
+            "Study natural selection"
+          ],
+          "duration_hours": 15
+        },
+        {
+          "number": 10,
+          "name": "Light: Reflection and Refraction",
+          "topics": [
+            "Reflection of Light",
+            "Spherical Mirrors",
+            "Refraction of Light",
+            "Lenses",
+            "Power of Lens"
+          ],
+          "learning_objectives": [
+            "Understand light reflection",
+            "Study spherical mirrors",
+            "Learn light refraction",
+            "Understand lenses",
+            "Calculate lens power"
+          ],
+          "duration_hours": 18
+        },
+        {
+          "number": 11,
+          "name": "Human Eye and Colourful World",
+          "topics": [
+            "Structure of Human Eye",
+            "Defects of Vision",
+            "Dispersion of Light",
+            "Atmospheric Refraction",
+            "Scattering of Light"
+          ],
+          "learning_objectives": [
+            "Understand eye structure",
+            "Study vision defects",
+            "Learn light dispersion",
+            "Understand atmospheric refraction",
+            "Study light scattering"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 12,
+          "name": "Electricity",
+          "topics": [
+            "Electric Current",
+            "Electric Circuit",
+            "Ohm's Law",
+            "Resistance",
+            "Electric Power"
+          ],
+          "learning_objectives": [
+            "Understand electric current",
+            "Study electric circuits",
+            "Apply Ohm's law",
+            "Calculate resistance",
+            "Understand electric power"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 13,
+          "name": "Magnetic Effects of Electric Current",
+          "topics": [
+            "Magnetic Field",
+            "Magnetic Field due to Current",
+            "Force on Current Carrying Conductor",
+            "Electric Motor",
+            "Electromagnetic Induction"
+          ],
+          "learning_objectives": [
+            "Understand magnetic fields",
+            "Study magnetic effects of current",
+            "Learn about electric motors",
+            "Understand electromagnetic induction",
+            "Apply magnetic concepts"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 14,
+          "name": "Sources of Energy",
+          "topics": [
+            "Conventional Sources",
+            "Non-Conventional Sources",
+            "Solar Energy",
+            "Wind Energy",
+            "Nuclear Energy"
+          ],
+          "learning_objectives": [
+            "Understand energy sources",
+            "Compare conventional and non-conventional sources",
+            "Study renewable energy",
+            "Learn about nuclear energy",
+            "Understand energy conservation"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 15,
+          "name": "Our Environment",
+          "topics": [
+            "Ecosystem",
+            "Food Chains and Webs",
+            "Environmental Problems",
+            "Ozone Layer",
+            "Waste Management"
+          ],
+          "learning_objectives": [
+            "Understand ecosystems",
+            "Study food chains and webs",
+            "Learn environmental problems",
+            "Understand ozone layer",
+            "Practice waste management"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 16,
+          "name": "Sustainable Management of Natural Resources",
+          "topics": [
+            "Natural Resources",
+            "Forest and Wildlife",
+            "Water Resources",
+            "Coal and Petroleum",
+            "Sustainable Development"
+          ],
+          "learning_objectives": [
+            "Understand natural resources",
+            "Study forest and wildlife conservation",
+            "Learn water resource management",
+            "Understand fossil fuels",
+            "Practice sustainable development"
+          ],
+          "duration_hours": 10
+        }
+      ]
+    },
+    {
+      "name": "Social Science",
+      "chapters": [
+        {
+          "number": 1,
+          "name": "History - The Rise of Nationalism in Europe",
+          "topics": [
+            "French Revolution",
+            "Napoleon Bonaparte",
+            "Unification of Germany",
+            "Unification of Italy",
+            "Nationalism in Europe"
+          ],
+          "learning_objectives": [
+            "Understand European nationalism",
+            "Study French Revolution impact",
+            "Learn about German unification",
+            "Understand Italian unification",
+            "Analyze nationalism effects"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 2,
+          "name": "History - Nationalism in India",
+          "topics": [
+            "First World War",
+            "Rowlatt Act",
+            "Non-Cooperation Movement",
+            "Civil Disobedience Movement",
+            "Quit India Movement"
+          ],
+          "learning_objectives": [
+            "Understand Indian nationalism",
+            "Study freedom struggle",
+            "Learn about mass movements",
+            "Understand Gandhi's role",
+            "Analyze independence movement"
+          ],
+          "duration_hours": 15
+        },
+        {
+          "number": 3,
+          "name": "Geography - Resources and Development",
+          "topics": [
+            "Types of Resources",
+            "Land Resources",
+            "Soil Resources",
+            "Water Resources",
+            "Mineral Resources"
+          ],
+          "learning_objectives": [
+            "Understand resource types",
+            "Study land resources",
+            "Learn about soil conservation",
+            "Understand water management",
+            "Study mineral resources"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 4,
+          "name": "Geography - Agriculture",
+          "topics": [
+            "Types of Farming",
+            "Major Crops",
+            "Agricultural Development",
+            "Food Security",
+            "Agricultural Technology"
+          ],
+          "learning_objectives": [
+            "Understand farming types",
+            "Study major crops",
+            "Learn agricultural development",
+            "Understand food security",
+            "Study agricultural technology"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 5,
+          "name": "Geography - Manufacturing Industries",
+          "topics": [
+            "Importance of Manufacturing",
+            "Industrial Location",
+            "Major Industries",
+            "Industrial Pollution",
+            "Industrial Development"
+          ],
+          "learning_objectives": [
+            "Understand manufacturing importance",
+            "Study industrial location factors",
+            "Learn about major industries",
+            "Understand industrial pollution",
+            "Study industrial development"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 6,
+          "name": "Geography - Lifelines of National Economy",
+          "topics": [
+            "Transport",
+            "Roadways",
+            "Railways",
+            "Waterways",
+            "Communication"
+          ],
+          "learning_objectives": [
+            "Understand transport systems",
+            "Study roadways and railways",
+            "Learn about waterways",
+            "Understand communication",
+            "Study economic lifelines"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 7,
+          "name": "Political Science - Power Sharing",
+          "topics": [
+            "Belgium and Sri Lanka",
+            "Majoritarianism",
+            "Power Sharing",
+            "Federalism",
+            "Democratic Politics"
+          ],
+          "learning_objectives": [
+            "Understand power sharing",
+            "Study Belgium and Sri Lanka cases",
+            "Learn about majoritarianism",
+            "Understand federalism",
+            "Study democratic politics"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 8,
+          "name": "Political Science - Federalism",
+          "topics": [
+            "What is Federalism",
+            "Federalism in India",
+            "Decentralization",
+            "Local Government",
+            "Democratic Decentralization"
+          ],
+          "learning_objectives": [
+            "Understand federalism",
+            "Study Indian federalism",
+            "Learn about decentralization",
+            "Understand local government",
+            "Study democratic decentralization"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 9,
+          "name": "Political Science - Democracy and Diversity",
+          "topics": [
+            "Social Differences",
+            "Social Divisions",
+            "Politics of Social Divisions",
+            "Democracy and Diversity",
+            "Social Movements"
+          ],
+          "learning_objectives": [
+            "Understand social differences",
+            "Study social divisions",
+            "Learn about politics of divisions",
+            "Understand democracy and diversity",
+            "Study social movements"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 10,
+          "name": "Political Science - Gender, Religion and Caste",
+          "topics": [
+            "Gender and Politics",
+            "Religion and Politics",
+            "Caste and Politics",
+            "Women's Movement",
+            "Social Reforms"
+          ],
+          "learning_objectives": [
+            "Understand gender in politics",
+            "Study religion and politics",
+            "Learn about caste politics",
+            "Understand women's movement",
+            "Study social reforms"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 11,
+          "name": "Economics - Development",
+          "topics": [
+            "What is Development",
+            "Income and Development",
+            "Human Development",
+            "Sustainable Development",
+            "Development Indicators"
+          ],
+          "learning_objectives": [
+            "Understand development concept",
+            "Study income and development",
+            "Learn about human development",
+            "Understand sustainable development",
+            "Study development indicators"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 12,
+          "name": "Economics - Sectors of Indian Economy",
+          "topics": [
+            "Primary Sector",
+            "Secondary Sector",
+            "Tertiary Sector",
+            "Employment in Sectors",
+            "Economic Development"
+          ],
+          "learning_objectives": [
+            "Understand economic sectors",
+            "Study primary sector",
+            "Learn about secondary sector",
+            "Understand tertiary sector",
+            "Study employment patterns"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 13,
+          "name": "Economics - Money and Credit",
+          "topics": [
+            "Money as Medium of Exchange",
+            "Modern Forms of Money",
+            "Credit",
+            "Self Help Groups",
+            "Banking System"
+          ],
+          "learning_objectives": [
+            "Understand money functions",
+            "Study modern money forms",
+            "Learn about credit",
+            "Understand self help groups",
+            "Study banking system"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 14,
+          "name": "Economics - Globalization and Indian Economy",
+          "topics": [
+            "Production Across Countries",
+            "Interlinking Production",
+            "Foreign Trade",
+            "Globalization",
+            "Impact of Globalization"
+          ],
+          "learning_objectives": [
+            "Understand production across countries",
+            "Study interlinking production",
+            "Learn about foreign trade",
+            "Understand globalization",
+            "Study globalization impact"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 15,
+          "name": "Economics - Consumer Rights",
+          "topics": [
+            "Consumer Rights",
+            "Consumer Movement",
+            "Consumer Protection",
+            "Consumer Awareness",
+            "Consumer Responsibilities"
+          ],
+          "learning_objectives": [
+            "Understand consumer rights",
+            "Study consumer movement",
+            "Learn about consumer protection",
+            "Understand consumer awareness",
+            "Study consumer responsibilities"
+          ],
+          "duration_hours": 10
+        }
+      ]
+    }
+  ]
+} 

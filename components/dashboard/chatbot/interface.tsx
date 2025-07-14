@@ -21,7 +21,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { MessageSquare, Send, Mic, Volume as VolumeUp, VolumeX, Image as ImageIcon, HelpCircle, Sparkles, Languages } from "lucide-react";
+import { MessageSquare, Send, Mic, Volume as VolumeUp, VolumeX, Image as ImageIcon, HelpCircle, Sparkles, Languages, Loader2 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface Message {
   id: string;
@@ -40,183 +41,139 @@ export function ChatbotInterface() {
     },
   ]);
   
-  const [inputValue, setInputValue] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [language, setLanguage] = useState("english");
   const [isListening, setIsListening] = useState(false);
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState("english");
-  
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const speechSynthesis = typeof window !== 'undefined' ? window.speechSynthesis : null;
+  const { toast } = useToast();
   
   // Scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Stop speaking when component unmounts
-  useEffect(() => {
-    return () => {
-      if (speechSynthesis) {
-        speechSynthesis.cancel();
-      }
-    };
-  }, []);
-  
-  const handleSendMessage = () => {
-    if (!inputValue.trim()) return;
-    
-    // Add user message
+  const handleSend = async () => {
+    if (!input.trim()) return;
+
     const userMessage: Message = {
-      id: `user-${Date.now()}`,
       role: "user",
-      content: inputValue,
+      content: input,
       timestamp: new Date(),
     };
     
     setMessages((prev) => [...prev, userMessage]);
-    setInputValue("");
-    setIsProcessing(true);
-    
-    // Simulate AI thinking and response
-    setTimeout(() => {
-      const botResponse = generateBotResponse(userMessage.content, currentLanguage);
+    setInput("");
+    setIsLoading(true);
+
+    try {
+      console.log('Sending chat request:', { message: input, language });
       
-      const assistantMessage = {
-        id: `assistant-${Date.now()}`,
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: input,
+          language,
+        }),
+      });
+
+      console.log('Chat response status:', response.status);
+
+      if (!response.ok) {
+        let errorMessage = `Failed to get response (Status: ${response.status})`;
+        try {
+          const errorText = await response.text();
+          console.error('Chat API error response:', errorText);
+          try {
+            const errorData = JSON.parse(errorText);
+            errorMessage = errorData.error || errorMessage;
+          } catch (e) {
+            errorMessage = errorText || errorMessage;
+          }
+        } catch (e) {
+          console.error('Failed to parse error response:', e);
+        }
+        throw new Error(errorMessage);
+      }
+
+      const data = await response.json();
+      console.log('Chat response data:', data);
+      
+      if (!data.response) {
+        throw new Error('Invalid response format from chatbot');
+      }
+
+      const assistantMessage: Message = {
         role: "assistant",
-        content: botResponse,
+        content: data.response,
         timestamp: new Date(),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
-      setIsProcessing(false);
-
-      // Auto-speak the response if text-to-speech is enabled
-      if (isSpeaking) {
-        speakText(botResponse);
-      }
-    }, 1500);
+    } catch (error) {
+      console.error('Chat error:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to get response from the chatbot. Please try again.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
   
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      handleSendMessage();
+      handleSend();
     }
   };
   
-  const toggleVoiceInput = () => {
-    // In a real app, this would use the Web Speech API
-    setIsListening(!isListening);
-    
-    if (!isListening) {
-      // Simulate voice recognition
-      setTimeout(() => {
-        const phrases = [
-          "What is the photoelectric effect?",
-          "Explain Newton's laws of motion",
-          "How do I solve quadratic equations?",
-          "What are the main themes in Shakespeare's works?",
-        ];
-        
-        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-        setInputValue(randomPhrase);
-        setIsListening(false);
-      }, 2000);
+  const startListening = () => {
+    if (!("webkitSpeechRecognition" in window)) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Speech recognition is not supported in your browser.",
+      });
+      return;
     }
-  };
 
-  const speakText = (text: string) => {
-    if (speechSynthesis) {
-      // Cancel any ongoing speech
-      speechSynthesis.cancel();
+    const recognition = new (window as any).webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = language === "english" ? "en-US" : 
+                      language === "hindi" ? "hi-IN" :
+                      language === "kannada" ? "kn-IN" :
+                      language === "tamil" ? "ta-IN" :
+                      language === "telugu" ? "te-IN" : "en-US";
 
-      const utterance = new SpeechSynthesisUtterance(text);
-      
-      // Set language based on current selection
-      switch (currentLanguage) {
-        case "hindi":
-          utterance.lang = "hi-IN";
-          break;
-        case "kannada":
-          utterance.lang = "kn-IN";
-          break;
-        case "tamil":
-          utterance.lang = "ta-IN";
-          break;
-        case "telugu":
-          utterance.lang = "te-IN";
-          break;
-        default:
-          utterance.lang = "en-IN";
-      }
-
-      utterance.rate = 0.9; // Slightly slower for better comprehension
-      utterance.pitch = 1;
-      
-      speechSynthesis.speak(utterance);
-    }
-  };
-
-  const toggleTextToSpeech = () => {
-    setIsSpeaking(!isSpeaking);
-    if (speechSynthesis && isSpeaking) {
-      speechSynthesis.cancel(); // Stop any ongoing speech when disabling
-    }
-  };
-  
-  // Function to generate mock bot responses based on input
-  const generateBotResponse = (input: string, language: string): string => {
-    const lowerInput = input.toLowerCase();
-    
-    // Define response templates for different languages
-    const responses: {[key: string]: {[key: string]: string}} = {
-      english: {
-        default: "I'm not sure I understand that question. Could you rephrase it or ask something about your NCERT syllabus?",
-        greeting: "Hello! How can I help you with your studies today?",
-        photoelectric: "The photoelectric effect is a phenomenon where electrons are emitted from a material (usually a metal) when light shines on it. This effect demonstrates the particle nature of light, as explained by Einstein. The key points are:\n\n1. Electrons are only emitted if the frequency of light is above a threshold value, regardless of intensity\n2. The kinetic energy of the emitted electrons depends on the frequency of light, not its intensity\n3. The intensity of light only affects how many electrons are emitted\n\nThis is covered in Chapter 11 of Class 12 NCERT Physics.",
-        newton: "Newton's three laws of motion form the basis of classical mechanics:\n\n1. First Law (Law of Inertia): An object will remain at rest or in uniform motion in a straight line unless acted upon by an external force.\n\n2. Second Law: The acceleration of an object is directly proportional to the net force acting on it and inversely proportional to its mass (F = ma).\n\n3. Third Law: For every action, there is an equal and opposite reaction.\n\nYou can find this in Chapter 5 of Class 11 NCERT Physics.",
-        quadratic: "To solve quadratic equations of the form ax² + bx + c = 0:\n\n1. Using the quadratic formula: x = (-b ± √(b² - 4ac)) / 2a\n\n2. By factoring: If you can write ax² + bx + c = (px + q)(rx + s) = 0, then x = -q/p or x = -s/r\n\n3. By completing the square: Rearrange to isolate x²\n\nExample: For x² - 5x + 6 = 0\nFactors of 6 that add up to -5 are -2 and -3\nSo (x-2)(x-3) = 0\nx = 2 or x = 3\n\nRefer to Chapter 4 of Class 10 NCERT Mathematics for more details.",
-        shakespeare: "Shakespeare's major themes include:\n\n1. Power and ambition (Macbeth, Julius Caesar)\n2. Love and romance (Romeo and Juliet, A Midsummer Night's Dream)\n3. Betrayal and revenge (Hamlet, Othello)\n4. Appearance vs. reality (Twelfth Night, The Merchant of Venice)\n5. Fate and free will (Romeo and Juliet, Macbeth)\n\nShakespeare is part of the Class 10 and Class 12 English literature curriculum.",
-      },
-      hindi: {
-        default: "मुझे यह प्रश्न समझ में नहीं आया। क्या आप इसे दोबारा पूछ सकते हैं या NCERT पाठ्यक्रम से संबंधित कुछ पूछ सकते हैं?",
-        greeting: "नमस्ते! मैं आपकी पढ़ाई में कैसे मदद कर सकता हूँ?",
-        photoelectric: "फोटोइलेक्ट्रिक प्रभाव एक घटना है जहां जब प्रकाश किसी सामग्री (आमतौर पर धातु) पर पड़ता है, तो इलेक्ट्रॉन उत्सर्जित होते हैं। यह प्रभाव प्रकाश के कण प्रकृति को दर्शाता है, जैसा कि आइंस्टाइन ने समझाया है।\n\nमुख्य बिंदु हैं:\n1. इलेक्ट्रॉन केवल तभी उत्सर्जित होते हैं जब प्रकाश की आवृत्ति एक सीमा मूल्य से अधिक होती है\n2. उत्सर्जित इलेक्ट्रॉनों की गतिज ऊर्जा प्रकाश की आवृत्ति पर निर्भर करती है\n3. प्रकाश की तीव्रता केवल इस बात को प्रभावित करती है कि कितने इलेक्ट्रॉन उत्सर्जित होते हैं\n\nयह कक्षा 12 NCERT भौतिकी के अध्याय 11 में शामिल है।",
-        newton: "न्यूटन के गति के तीन नियम शास्त्रीय यांत्रिकी का आधार बनाते हैं:\n\n1. पहला नियम (जड़त्व का नियम): कोई वस्तु विराम अवस्था में या एक सीधी रेखा में एकसमान गति में बनी रहेगी जब तक कि उस पर कोई बाहरी बल कार्य न करे।\n\n2. दूसरा नियम: किसी वस्तु का त्वरण उस पर कार्य करने वाले शुद्ध बल के समानुपाती होता है और उसके द्रव्यमान के व्युत्क्रमानुपाती होता है (F = ma)।\n\n3. तीसरा नियम: हर क्रिया के लिए, एक समान और विपरीत प्रतिक्रिया होती है।\n\nआप इसे कक्षा 11 NCERT भौतिकी के अध्याय 5 में पा सकते हैं।",
-      },
-      kannada: {
-        default: "ನನಗೆ ಆ ಪ್ರಶ್ನೆಯನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ. ದಯವಿಟ್ಟು ಅದನ್ನು ಮತ್ತೊಮ್ಮೆ ಕೇಳಿ ಅಥವಾ NCERT ಪಠ್ಯಕ್ರಮಕ್ಕೆ ಸಂಬಂಧಿಸಿದ ಯಾವುದಾದರೂ ಕೇಳಿ.",
-        greeting: "ನಮಸ್ಕಾರ! ನಾನು ನಿಮ್ಮ ಅಧ್ಯಯನದಲ್ಲಿ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?",
-      },
-      tamil: {
-        default: "அந்தக் கேள்வியைப் புரிந்துகொள்ள முடியவில்லை. அதை மீண்டும் கேட்கவும் அல்லது NCERT பாடத்திட்டத்தைப் பற்றி ஏதாவது கேட்கவும்.",
-        greeting: "வணக்கம்! நான் உங்கள் படிப்பில் எப்படி உதவலாம்?",
-      },
-      telugu: {
-        default: "ఆ ప్రశ్నను అర్థం చేసుకోలేకపోతున్నాను. దయచేసి దానిని మళ్లీ అడగండి లేదా NCERT సిలబస్‌కు సంబంధించిన ఏదైనా అడగండి.",
-        greeting: "హలో! నేను మీ చదువులో ఎలా సహాయపడగలను?",
-      },
+    recognition.onstart = () => {
+      setIsListening(true);
     };
-    
-    // Default to English if the specified language isn't available
-    const langResponses = responses[language] || responses.english;
-    
-    // Check for specific keywords in the input and return corresponding responses
-    if (lowerInput.includes("hello") || lowerInput.includes("hi") || lowerInput.includes("hey")) {
-      return langResponses.greeting || responses.english.greeting;
-    } else if (lowerInput.includes("photoelectric") || lowerInput.includes("effect")) {
-      return langResponses.photoelectric || responses.english.photoelectric;
-    } else if (lowerInput.includes("newton") || lowerInput.includes("laws of motion")) {
-      return langResponses.newton || responses.english.newton;
-    } else if (lowerInput.includes("quadratic") || lowerInput.includes("equation")) {
-      return langResponses.quadratic || responses.english.quadratic;
-    } else if (lowerInput.includes("shakespeare") || lowerInput.includes("themes")) {
-      return langResponses.shakespeare || responses.english.shakespeare;
-    }
-    
-    return langResponses.default || responses.english.default;
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setInput(transcript);
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error("Speech recognition error:", event.error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to recognize speech. Please try again.",
+      });
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.start();
   };
   
   // Suggested questions for quick access
@@ -243,18 +200,9 @@ export function ChatbotInterface() {
           </TabsList>
           
           <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={toggleTextToSpeech}
-              className={isSpeaking ? "bg-primary text-primary-foreground" : ""}
-            >
-              {isSpeaking ? <VolumeUp className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
-            </Button>
-            
             <Select 
-              value={currentLanguage} 
-              onValueChange={setCurrentLanguage}
+              value={language} 
+              onValueChange={setLanguage}
             >
               <SelectTrigger className="w-[180px] h-9">
                 <div className="flex items-center gap-2">
@@ -309,7 +257,7 @@ export function ChatbotInterface() {
                     </div>
                   ))}
                   
-                  {isProcessing && (
+                  {isLoading && (
                     <div className="flex justify-start">
                       <div className="max-w-[80%] rounded-lg bg-muted px-4 py-2">
                         <div className="flex space-x-2">
@@ -336,7 +284,7 @@ export function ChatbotInterface() {
                         key={index}
                         variant="outline"
                         className="cursor-pointer hover:bg-muted"
-                        onClick={() => setInputValue(question)}
+                        onClick={() => setInput(question)}
                       >
                         {question}
                       </Badge>
@@ -349,25 +297,18 @@ export function ChatbotInterface() {
                 <Button
                   variant="outline"
                   size="icon"
-                  type="button"
-                  onClick={toggleVoiceInput}
-                  className={isListening ? "bg-primary text-primary-foreground" : ""}
+                  onClick={startListening}
+                  disabled={isListening}
                 >
                   <Mic className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  type="button"
-                >
-                  <ImageIcon className="h-4 w-4" />
                 </Button>
                 <div className="relative flex-1">
                   <Input
                     placeholder="Type your message here..."
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
                     onKeyDown={handleKeyPress}
+                    disabled={isLoading}
                   />
                   {isListening && (
                     <div className="absolute inset-0 flex items-center justify-center bg-background/80 rounded-md">
@@ -381,10 +322,14 @@ export function ChatbotInterface() {
                 <Button
                   type="button"
                   size="icon"
-                  onClick={handleSendMessage}
-                  disabled={!inputValue.trim() || isProcessing}
+                  onClick={handleSend}
+                  disabled={isLoading || !input.trim()}
                 >
+                  {isLoading ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
                   <Send className="h-4 w-4" />
+                  )}
                 </Button>
               </div>
             </div>
