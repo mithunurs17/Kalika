@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { BookOpen, Brain, Laptop, Languages, Clock, MessageSquare, Trophy, Users, Award, Shield } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 // Custom hook for mouse parallax
 function useParallax(ref: React.RefObject<HTMLDivElement>, intensity = 30) {
@@ -169,83 +170,8 @@ export function LandingPage() {
       </section>
 
       {/* Features */}
-      <section ref={featuresRef} className="w-full py-16 md:py-28 lg:py-36 animate-fade-in-up">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-4 max-w-3xl mx-auto">
-              <div className="inline-block rounded-lg bg-muted px-4 py-2 text-sm font-medium animate-fade-in-up">Why Choose Kalika</div>
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl animate-fade-in-up">
-                Everything You Need to Excel
-              </h2>
-              <p className="text-muted-foreground text-lg md:text-xl leading-relaxed animate-fade-in-up">
-                Kalika combines modern learning technology with traditional NCERT curriculum to create the perfect study companion for board exam preparation.
-              </p>
-            </div>
-          </div>
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mt-16">
-            {/* Feature 1 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <Brain className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold">Gamified Learning</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Learn through interactive games, quizzes, and challenges. Earn points, badges, and unlock achievements as you progress through your syllabus.
-              </p>
-            </div>
-            {/* Feature 2 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <Languages className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold">Regional Languages</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Study in your preferred language with comprehensive support for Kannada, Tamil, Telugu, Hindi, and English. Perfect for regional board students.
-              </p>
-            </div>
-            {/* Feature 3 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <MessageSquare className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold">AI Study Assistant</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Get 24/7 assistance with your questions through our intelligent AI chatbot. Understand complex concepts with detailed explanations.
-              </p>
-            </div>
-            {/* Feature 4 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <Laptop className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold">Voice Learning</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Ask questions verbally and get detailed explanations. Perfect for auditory learners and those who prefer speaking over typing.
-              </p>
-            </div>
-            {/* Feature 5 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <Clock className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold">Smart Study Timer</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Stay focused with integrated Pomodoro technique and customizable study sessions. Track your productivity and build better study habits.
-              </p>
-            </div>
-            {/* Feature 6 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <Trophy className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-xl font-bold">Progress Analytics</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Monitor your learning journey with detailed analytics, performance insights, and personalized recommendations for improvement.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Study Animation Section (replaces Why Kalika/features) */}
+      <StudyAnimation />
 
       {/* Stats Section */}
       <section ref={statsRef} className="w-full py-12 md:py-24 bg-muted/50 animate-fade-in-up">
@@ -345,6 +271,85 @@ export function LandingPage() {
         }
         .feature-glow:hover {
           box-shadow: 0 0 24px 4px #ff00cc55, 0 0 0 2px #fff2;
+        }
+      `}</style>
+    </div>
+  );
+}
+
+function StudyAnimation() {
+  const router = useRouter();
+  const [animate, setAnimate] = useState(true);
+
+  useEffect(() => {
+    if (animate) {
+      const timeout = setTimeout(() => {
+        setAnimate(false);
+        router.push('/');
+      }, 7000); // Slower animation duration (7s)
+      return () => clearTimeout(timeout);
+    }
+  }, [animate, router]);
+
+  if (!animate) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-[#0a0b1a] via-[#181a2f] to-[#1a1b3a] overflow-hidden animate-fade-in-up">
+      {/* Expanding 3D Study Animation */}
+      <div className="relative w-full h-full flex items-center justify-center">
+        {/* Central 3D Book Icon */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-expand-3d">
+          <BookOpen className="w-32 h-32 md:w-48 md:h-48 text-pink-400 drop-shadow-2xl" style={{ filter: 'drop-shadow(0 0 40px #ff00cc88)' }} />
+        </div>
+        {/* Floating Study Icons */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+          <div className="floating-icon" style={{ left: '-120px', top: '-80px', animationDelay: '0.2s' }}><Trophy className="w-12 h-12 text-yellow-400" /></div>
+          <div className="floating-icon" style={{ left: '100px', top: '-100px', animationDelay: '0.4s' }}><Brain className="w-12 h-12 text-blue-400" /></div>
+          <div className="floating-icon" style={{ left: '-100px', top: '100px', animationDelay: '0.6s' }}><Laptop className="w-12 h-12 text-green-400" /></div>
+          <div className="floating-icon" style={{ left: '120px', top: '120px', animationDelay: '0.8s' }}><Award className="w-12 h-12 text-pink-400" /></div>
+        </div>
+      </div>
+      <style jsx global>{`
+        @keyframes expand3d {
+          0% {
+            transform: scale(0.2) rotateY(0deg) translate(-50%, -50%);
+            opacity: 0.7;
+            filter: blur(8px);
+          }
+          60% {
+            transform: scale(1.1) rotateY(30deg) translate(-50%, -50%);
+            opacity: 1;
+            filter: blur(0px);
+          }
+          100% {
+            transform: scale(8) rotateY(60deg) translate(-50%, -50%);
+            opacity: 0;
+            filter: blur(16px);
+          }
+        }
+        .animate-expand-3d {
+          animation: expand3d 6.5s cubic-bezier(0.4,0,0.2,1) forwards;
+        }
+        .floating-icon {
+          position: absolute;
+          opacity: 0.8;
+          animation: floatIcon 5.5s ease-in-out forwards;
+        }
+        @keyframes floatIcon {
+          0% {
+            transform: scale(0.2) translateY(0px);
+            opacity: 0;
+            filter: blur(8px);
+          }
+          40% {
+            opacity: 1;
+            filter: blur(0px);
+          }
+          100% {
+            transform: scale(2.5) translateY(-120px);
+            opacity: 0;
+            filter: blur(12px);
+          }
         }
       `}</style>
     </div>
