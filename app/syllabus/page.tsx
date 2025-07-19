@@ -32,6 +32,7 @@ export default function SyllabusPage() {
 
   useEffect(() => {
     fetchSyllabus();
+    // eslint-disable-next-line
   }, []);
 
   const fetchSyllabus = async () => {
@@ -41,14 +42,19 @@ export default function SyllabusPage() {
       if (response.ok) {
         const data = await response.json();
         setSyllabus(data.syllabus);
-        
-        // Set default subject for user's class
+
+        // Set default class and subject for user's class
+        let classToSelect = selectedClass;
         if (user?.class && data.syllabus[user.class]) {
-          setSelectedClass(user.class);
-          const subjects = Object.keys(data.syllabus[user.class]);
-          if (subjects.length > 0) {
-            setSelectedSubject(subjects[0]);
-          }
+          classToSelect = user.class;
+        } else if (Object.keys(data.syllabus).length > 0) {
+          classToSelect = Object.keys(data.syllabus)[0];
+        }
+        setSelectedClass(classToSelect);
+
+        const subjects = Object.keys(data.syllabus[classToSelect] || {});
+        if (subjects.length > 0) {
+          setSelectedSubject(subjects[0]);
         }
       }
     } catch (error) {

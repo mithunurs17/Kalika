@@ -16,40 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/splash/page.js"
     ],
-    "/features/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/features/page.js"
-    ],
-    "/syllabus/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/syllabus/page.js"
-    ],
-    "/api/syllabus/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/syllabus/route.js"
-    ],
-    "/pricing/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/pricing/page.js"
-    ],
-    "/about/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/about/page.js"
-    ],
     "/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/login/page.js"
-    ],
-    "/api/auth/login/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/auth/login/route.js"
     ],
     "/dashboard/layout": [
       "static/chunks/webpack.js",
@@ -81,55 +51,35 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/quiz/route.js"
     ],
+    "/dashboard/syllabus/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/syllabus/page.js"
+    ],
+    "/syllabus/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/syllabus/page.js"
+    ],
+    "/api/syllabus/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/syllabus/route.js"
+    ],
     "/dashboard/study-sessions/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/dashboard/study-sessions/page.js"
     ],
+    "/dashboard/quizzes/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/quizzes/page.js"
+    ],
     "/dashboard/progress/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/dashboard/progress/page.js"
-    ],
-    "/dashboard/planner/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/planner/page.js"
-    ],
-    "/dashboard/achievements/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/achievements/page.js"
-    ],
-    "/dashboard/groups/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/groups/page.js"
-    ],
-    "/dashboard/settings/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/settings/page.js"
-    ],
-    "/dashboard/support/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/support/page.js"
-    ],
-    "/dashboard/profile/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/profile/page.js"
-    ],
-    "/register/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/register/page.js"
-    ],
-    "/api/auth/register/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/auth/register/route.js"
     ]
   }
 }
