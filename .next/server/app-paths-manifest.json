@@ -1,6 +1,6 @@
 {
   "/api/user/profile/route": "app/api/user/profile/route.js",
-  "/splash/page": "app/splash/page.js",
   "/page": "app/page.js",
+  "/splash/page": "app/splash/page.js",
   "/dashboard/page": "app/dashboard/page.js"
 }
