@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BookOpen, Clock, Target, CheckCircle, PlayCircle, FileText } from "lucide-react";
 import { useAuth } from "@/components/providers/auth-provider";
+import BackToDashboardButton from "@/components/ui/back-to-dashboard";
 
 interface SyllabusData {
   [classKey: string]: {
@@ -111,6 +112,7 @@ export default function SyllabusPage() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
+      <BackToDashboardButton />
       {/* Header */}
       <div className="flex items-center gap-2 mb-6">
         <BookOpen className="h-6 w-6 text-primary" />
