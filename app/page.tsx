@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LandingPage } from "@/components/landing-page";
+import { SyllabusShowcase } from "@/components/syllabus-showcase";
 
 export default function Home() {
   const router = useRouter();
@@ -20,5 +21,11 @@ export default function Home() {
   }, [router]);
 
   if (!showLanding) return null;
-  return <LandingPage />;
+  
+  return (
+    <div>
+      <LandingPage />
+      <SyllabusShowcase />
+    </div>
+  );
 }

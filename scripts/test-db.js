@@ -4,54 +4,53 @@
 require('dotenv').config({ path: '.env.local' });
 const { Pool } = require('pg');
 
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:password@localhost:5432/kalika_db',
+});
+
 async function testDatabase() {
-  console.log('🔍 Testing database connection...');
+  const client = await pool.connect();
   
-  if (!process.env.DATABASE_URL) {
-    console.error('❌ DATABASE_URL not found in environment variables');
-    console.error('Please create a .env.local file with your Neon database connection string');
-    return;
-  }
-
-  const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
-  });
-
   try {
-    // Test basic connection
-    console.log('📡 Testing connection...');
-    const result = await pool.query('SELECT NOW() as current_time');
-    console.log('✅ Connection successful:', result.rows[0]);
-
-    // Test if tables exist
-    console.log('📋 Checking tables...');
-    const tables = await pool.query(`
-      SELECT table_name 
-      FROM information_schema.tables 
-      WHERE table_schema = 'public'
-    `);
-    
-    console.log('📊 Found tables:', tables.rows.map(row => row.table_name));
+    console.log('🔍 Testing database connection and data...');
 
     // Test users table
-    console.log('👥 Testing users table...');
-    const userCount = await pool.query('SELECT COUNT(*) as count FROM users');
-    console.log('✅ Users table accessible, count:', userCount.rows[0].count);
+    console.log('\n📋 Checking users table:');
+    const usersResult = await client.query('SELECT id, name, email, class FROM users LIMIT 5');
+    console.log(`Found ${usersResult.rowCount} users:`);
+    usersResult.rows.forEach((user, index) => {
+      console.log(`  ${index + 1}. ${user.name} (${user.email}) - Class: ${user.class || 'NOT ASSIGNED'}`);
+    });
 
-    // Test progress table
-    console.log('📈 Testing progress table...');
-    const progressCount = await pool.query('SELECT COUNT(*) as count FROM progress');
-    console.log('✅ Progress table accessible, count:', progressCount.rows[0].count);
+    // Test syllabus table
+    console.log('\n📚 Checking syllabus table:');
+    const syllabusResult = await client.query('SELECT class, subject, COUNT(*) as chapter_count FROM syllabus GROUP BY class, subject ORDER BY class, subject');
+    console.log(`Found syllabus data:`);
+    syllabusResult.rows.forEach((row) => {
+      console.log(`  ${row.class} - ${row.subject}: ${row.chapter_count} chapters`);
+    });
 
-    console.log('🎉 All database tests passed!');
+    // Test total chapters per class
+    console.log('\n📊 Total chapters per class:');
+    const totalResult = await client.query('SELECT class, COUNT(*) as total_chapters FROM syllabus GROUP BY class ORDER BY class');
+    totalResult.rows.forEach((row) => {
+      console.log(`  ${row.class}: ${row.total_chapters} chapters`);
+    });
 
   } catch (error) {
-    console.error('❌ Database test failed:', error.message);
-    console.error('Full error:', error);
+    console.error('❌ Database test error:', error);
   } finally {
-    await pool.end();
+    client.release();
   }
 }
 
-testDatabase(); 
+// Run the test
+testDatabase()
+  .then(() => {
+    console.log('\n✅ Database test completed!');
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error('💥 Database test failed:', error);
+    process.exit(1);
+  }); 

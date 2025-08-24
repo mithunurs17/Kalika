@@ -197,23 +197,6 @@
         },
         {
           "number": 11,
-          "name": "Constructions",
-          "topics": [
-            "Division of Line Segment",
-            "Construction of Triangles",
-            "Construction of Tangents",
-            "Geometric Constructions"
-          ],
-          "learning_objectives": [
-            "Divide line segments",
-            "Construct triangles",
-            "Construct tangents",
-            "Perform geometric constructions"
-          ],
-          "duration_hours": 12
-        },
-        {
-          "number": 12,
           "name": "Areas Related to Circles",
           "topics": [
             "Area of Circle",
@@ -232,7 +215,7 @@
           "duration_hours": 14
         },
         {
-          "number": 13,
+          "number": 12,
           "name": "Surface Areas and Volumes",
           "topics": [
             "Surface Area of Cubes",
@@ -253,7 +236,7 @@
           "duration_hours": 20
         },
         {
-          "number": 14,
+          "number": 13,
           "name": "Statistics",
           "topics": [
             "Mean of Grouped Data",
@@ -272,7 +255,7 @@
           "duration_hours": 16
         },
         {
-          "number": 15,
+          "number": 14,
           "name": "Probability",
           "topics": [
             "Theoretical Probability",

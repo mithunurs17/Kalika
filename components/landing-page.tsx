@@ -24,7 +24,7 @@ function useParallax(ref: React.RefObject<HTMLDivElement>, intensity = 30) {
   }, [ref, intensity]);
 }
 
-// Reveal on scroll hook
+// Reveal on scroll hook with smoother animations
 function useRevealOnScroll(ref: React.RefObject<HTMLDivElement>, delay = 0) {
   useEffect(() => {
     const el = ref.current;
@@ -60,6 +60,7 @@ export function LandingPage() {
       <div className="absolute -top-32 -left-32 w-[400px] h-[400px] rounded-full bg-pink-500 opacity-20 blur-3xl animate-blob1 z-0" />
       <div className="absolute -bottom-32 -right-32 w-[400px] h-[400px] rounded-full bg-blue-500 opacity-20 blur-3xl animate-blob2 z-0" />
       <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] rounded-full bg-purple-500 opacity-10 blur-2xl animate-blob3 -translate-x-1/2 -translate-y-1/2 z-0" />
+      
       {/* Navigation */}
       <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 animate-fade-in-up">
         <div className="container flex h-16 items-center justify-between px-4">
@@ -98,7 +99,7 @@ export function LandingPage() {
       {/* Hero Section with Parallax */}
       <section ref={heroRef} className="w-full py-16 md:py-28 lg:py-36 relative overflow-hidden animate-fade-in-up" style={{
         transform: 'translate3d(var(--parallax-x, 0), var(--parallax-y, 0), 0)',
-        transition: 'transform 0.2s cubic-bezier(0.4,0,0.2,1)'
+        transition: 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
       }}>
         {/* Parallax floating shapes */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none">
@@ -114,7 +115,7 @@ export function LandingPage() {
             </radialGradient>
           </defs>
           <circle cx="160" cy="160" r="120" fill="url(#pulse)">
-            <animate attributeName="r" values="120;140;120" dur="3s" repeatCount="indefinite" />
+            <animate attributeName="r" values="120;140;120" dur="4s" repeatCount="indefinite" />
           </circle>
         </svg>
         <div className="container px-4 md:px-6 relative z-10">
@@ -168,80 +169,83 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Features */}
-      <section ref={featuresRef} className="w-full py-16 md:py-28 lg:py-36 animate-fade-in-up">
+      {/* Features Section */}
+      <section ref={featuresRef} className="w-full py-16 md:py-24 bg-muted/30 animate-fade-in-up">
         <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-4 max-w-3xl mx-auto">
-              <div className="inline-block rounded-lg bg-muted px-4 py-2 text-sm font-medium animate-fade-in-up">Why Choose Kalika</div>
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl animate-fade-in-up">
-                Everything You Need to Excel
-              </h2>
-              <p className="text-muted-foreground text-lg md:text-xl leading-relaxed animate-fade-in-up">
-                Kalika combines modern learning technology with traditional NCERT curriculum to create the perfect study companion for board exam preparation.
-              </p>
-            </div>
+          <div className="flex flex-col items-center space-y-4 text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl animate-fade-in-up">
+              Why Choose Kalika?
+            </h2>
+            <p className="max-w-[600px] text-muted-foreground text-lg animate-fade-in-up">
+              Experience the future of education with our innovative features designed for modern learners.
+            </p>
           </div>
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mt-16">
-            {/* Feature 1 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <Brain className="h-8 w-8 text-primary" />
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="group relative overflow-hidden rounded-lg border bg-card p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in-up">
+              <div className="flex items-center space-x-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <Brain className="h-6 w-6 text-primary" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold">AI-Powered Learning</h3>
+                  <p className="text-sm text-muted-foreground">Personalized study plans and intelligent tutoring</p>
+                </div>
               </div>
-              <h3 className="text-xl font-bold">Gamified Learning</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Learn through interactive games, quizzes, and challenges. Earn points, badges, and unlock achievements as you progress through your syllabus.
-              </p>
             </div>
-            {/* Feature 2 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <Languages className="h-8 w-8 text-primary" />
+            <div className="group relative overflow-hidden rounded-lg border bg-card p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in-up">
+              <div className="flex items-center space-x-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <Languages className="h-6 w-6 text-primary" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold">Regional Languages</h3>
+                  <p className="text-sm text-muted-foreground">Learn in your preferred language</p>
+                </div>
               </div>
-              <h3 className="text-xl font-bold">Regional Languages</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Study in your preferred language with comprehensive support for Kannada, Tamil, Telugu, Hindi, and English. Perfect for regional board students.
-              </p>
             </div>
-            {/* Feature 3 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <MessageSquare className="h-8 w-8 text-primary" />
+            <div className="group relative overflow-hidden rounded-lg border bg-card p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in-up">
+              <div className="flex items-center space-x-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <Trophy className="h-6 w-6 text-primary" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold">Gamified Learning</h3>
+                  <p className="text-sm text-muted-foreground">Earn points, badges, and compete with peers</p>
+                </div>
               </div>
-              <h3 className="text-xl font-bold">AI Study Assistant</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Get 24/7 assistance with your questions through our intelligent AI chatbot. Understand complex concepts with detailed explanations.
-              </p>
             </div>
-            {/* Feature 4 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <Laptop className="h-8 w-8 text-primary" />
+            <div className="group relative overflow-hidden rounded-lg border bg-card p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in-up">
+              <div className="flex items-center space-x-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <Clock className="h-6 w-6 text-primary" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold">Study Planning</h3>
+                  <p className="text-sm text-muted-foreground">Smart scheduling and progress tracking</p>
+                </div>
               </div>
-              <h3 className="text-xl font-bold">Voice Learning</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Ask questions verbally and get detailed explanations. Perfect for auditory learners and those who prefer speaking over typing.
-              </p>
             </div>
-            {/* Feature 5 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <Clock className="h-8 w-8 text-primary" />
+            <div className="group relative overflow-hidden rounded-lg border bg-card p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in-up">
+              <div className="flex items-center space-x-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <MessageSquare className="h-6 w-6 text-primary" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold">24/7 Support</h3>
+                  <p className="text-sm text-muted-foreground">Get help whenever you need it</p>
+                </div>
               </div>
-              <h3 className="text-xl font-bold">Smart Study Timer</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Stay focused with integrated Pomodoro technique and customizable study sessions. Track your productivity and build better study habits.
-              </p>
             </div>
-            {/* Feature 6 */}
-            <div className="group flex flex-col items-center space-y-4 rounded-xl border p-8 shadow-sm transition-all hover:shadow-xl text-center card-hover glass animate-fade-in-up feature-glow">
-              <div className="rounded-full bg-primary/10 p-4 group-hover:bg-primary/20 transition-colors">
-                <Trophy className="h-8 w-8 text-primary" />
+            <div className="group relative overflow-hidden rounded-lg border bg-card p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in-up">
+              <div className="flex items-center space-x-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <Laptop className="h-6 w-6 text-primary" />
+                </div>
+                <div className="space-y-1">
+                  <h3 className="font-semibold">Multi-Platform</h3>
+                  <p className="text-sm text-muted-foreground">Learn on any device, anywhere</p>
+                </div>
               </div>
-              <h3 className="text-xl font-bold">Progress Analytics</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Monitor your learning journey with detailed analytics, performance insights, and personalized recommendations for improvement.
-              </p>
             </div>
           </div>
         </div>
@@ -262,6 +266,10 @@ export function LandingPage() {
             <div className="space-y-2">
               <div className="text-3xl md:text-4xl font-bold text-primary">4.9★</div>
               <div className="text-sm text-muted-foreground">Student Rating</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-3xl md:text-4xl font-bold text-primary">95%</div>
+              <div className="text-sm text-muted-foreground">Success Rate</div>
             </div>
           </div>
         </div>
@@ -313,6 +321,7 @@ export function LandingPage() {
           </div>
         </div>
       </footer>
+      
       {/* Keyframes for animation and feature card glow */}
       <style jsx global>{`
         @keyframes blob1 {
@@ -329,19 +338,19 @@ export function LandingPage() {
           0%, 100% { transform: scale(1) translate(-50%, -50%); }
           50% { transform: scale(1.08) translate(-55%, -45%); }
         }
-        .animate-blob1 { animation: blob1 7s ease-in-out infinite; }
-        .animate-blob2 { animation: blob2 8s ease-in-out infinite; }
-        .animate-blob3 { animation: blob3 6s ease-in-out infinite; }
-        .animate-spin-slow { animation: spin 18s linear infinite; }
-        .animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
-        .animate-fade-in-up { animation: fadeInUp 0.8s cubic-bezier(0.4,0,0.2,1) both; }
+        .animate-blob1 { animation: blob1 8s ease-in-out infinite; }
+        .animate-blob2 { animation: blob2 10s ease-in-out infinite; }
+        .animate-blob3 { animation: blob3 7s ease-in-out infinite; }
+        .animate-spin-slow { animation: spin 20s linear infinite; }
+        .animate-pulse-slow { animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .animate-fade-in-up { animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
         @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(40px); }
+          from { opacity: 0; transform: translateY(30px); }
           to { opacity: 1; transform: translateY(0); }
         }
         .feature-glow {
           box-shadow: 0 0 0 0 #ff00cc00;
-          transition: box-shadow 0.4s cubic-bezier(0.4,0,0.2,1);
+          transition: box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .feature-glow:hover {
           box-shadow: 0 0 24px 4px #ff00cc55, 0 0 0 2px #fff2;

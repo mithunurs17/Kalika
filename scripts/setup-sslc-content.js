@@ -4,139 +4,68 @@
 require('dotenv').config({ path: '.env.local' });
 const fs = require('fs');
 const path = require('path');
+const { Pool } = require('pg');
 
-async function setupSSLContent() {
-  console.log('🚀 Setting up SSLC content...');
-  
-  try {
-    // Step 1: Upload Syllabus
-    console.log('\n📚 Step 1: Uploading SSLC Syllabus...');
-    await uploadSyllabus();
-    
-    // Step 2: Generate Sample Quizzes
-    console.log('\n🎯 Step 2: Generating Sample Quizzes...');
-    await generateSampleQuizzes();
-    
-    // Step 3: Generate Sample Study Content
-    console.log('\n📖 Step 3: Generating Sample Study Content...');
-    await generateSampleContent();
-    
-    console.log('\n✅ SSLC content setup completed successfully!');
-    
-  } catch (error) {
-    console.error('❌ Error setting up SSLC content:', error.message);
-  }
-}
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:password@localhost:5432/kalika_db',
+});
 
-async function uploadSyllabus() {
+async function setupContent() {
+  const client = await pool.connect();
   try {
+    console.log('🚀 Setting up Class 10 (SSLC) syllabus content from data/sslc-syllabus.json ...');
+
+    // Clear existing syllabus data
+    await client.query('DELETE FROM syllabus');
+
+    // Read syllabus from JSON file
     const syllabusPath = path.join(__dirname, '../data/sslc-syllabus.json');
-    const syllabusData = JSON.parse(fs.readFileSync(syllabusPath, 'utf8'));
-    
-    const response = await fetch('http://localhost:3000/api/syllabus/upload', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(syllabusData),
-    });
+    const syllabusJson = JSON.parse(fs.readFileSync(syllabusPath, 'utf-8'));
 
-    const result = await response.json();
-    
-    if (response.ok) {
-      console.log(`✅ Syllabus uploaded: ${result.subjects} subjects`);
-    } else {
-      throw new Error(result.error);
+    const className = syllabusJson.class || '10th Grade (SSLC)';
+    const subjects = syllabusJson.subjects || [];
+
+    let insertCount = 0;
+    for (const subject of subjects) {
+      const subjectName = subject.name;
+      for (const chapter of subject.chapters) {
+        const query = `
+          INSERT INTO syllabus (
+            class, subject, chapter_name, chapter_number, 
+            topics, learning_objectives, duration_hours
+          ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+        `;
+        await client.query(query, [
+          className,
+          subjectName,
+          chapter.name,
+          chapter.number,
+          JSON.stringify(chapter.topics),
+          JSON.stringify(chapter.learning_objectives),
+          chapter.duration_hours
+        ]);
+        insertCount++;
+      }
     }
+
+    console.log(`✅ Syllabus content setup completed successfully!`);
+    console.log(`📚 Added ${insertCount} chapters for Class 10 (SSLC) from data/sslc-syllabus.json`);
+    console.log('📖 Subjects covered:', subjects.map(s => s.name).join(', '));
   } catch (error) {
-    console.error('❌ Syllabus upload failed:', error.message);
+    console.error('❌ Error setting up syllabus content:', error);
     throw error;
+  } finally {
+    client.release();
   }
 }
 
-async function generateSampleQuizzes() {
-  const sampleChapters = [
-    { subject: 'Mathematics', chapter: 'Real Numbers', topic: 'Euclid\'s Division Lemma' },
-    { subject: 'Mathematics', chapter: 'Polynomials', topic: 'Zeroes of Polynomials' },
-    { subject: 'Science', chapter: 'Chemical Reactions and Equations', topic: 'Balancing Chemical Equations' },
-    { subject: 'Science', chapter: 'Acids, Bases and Salts', topic: 'pH Scale' },
-    { subject: 'Social Science', chapter: 'History - Nationalism in India', topic: 'Non-Cooperation Movement' }
-  ];
-
-  for (const chapter of sampleChapters) {
-    try {
-      console.log(`🎯 Generating quiz for ${chapter.subject} - ${chapter.chapter}...`);
-      
-      const response = await fetch('http://localhost:3000/api/quiz/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          subject: chapter.subject,
-          chapter: chapter.chapter,
-          topic: chapter.topic,
-          difficulty: 'medium',
-          count: 5
-        }),
-      });
-
-      const result = await response.json();
-      
-      if (response.ok) {
-        console.log(`✅ Generated ${result.questions.length} questions`);
-      } else {
-        console.log(`⚠️ Quiz generation failed: ${result.error}`);
-      }
-      
-      // Small delay to avoid overwhelming the API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-    } catch (error) {
-      console.log(`⚠️ Quiz generation failed for ${chapter.chapter}: ${error.message}`);
-    }
-  }
-}
-
-async function generateSampleContent() {
-  const sampleChapters = [
-    { subject: 'Mathematics', chapter: 'Real Numbers', topic: 'Introduction' },
-    { subject: 'Science', chapter: 'Chemical Reactions and Equations', topic: 'Introduction' },
-    { subject: 'Social Science', chapter: 'History - Nationalism in India', topic: 'Introduction' }
-  ];
-
-  for (const chapter of sampleChapters) {
-    try {
-      console.log(`📖 Generating content for ${chapter.subject} - ${chapter.chapter}...`);
-      
-      const response = await fetch('http://localhost:3000/api/content/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          subject: chapter.subject,
-          chapter: chapter.chapter,
-          topic: chapter.topic,
-          content_type: 'text',
-          difficulty: 'medium'
-        }),
-      });
-
-      const result = await response.json();
-      
-      if (response.ok) {
-        console.log(`✅ Generated study content: ${result.content.title}`);
-      } else {
-        console.log(`⚠️ Content generation failed: ${result.error}`);
-      }
-      
-      // Small delay to avoid overwhelming the API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-    } catch (error) {
-      console.log(`⚠️ Content generation failed for ${chapter.chapter}: ${error.message}`);
-    }
-  }
-}
-
-// Check if running directly
-if (require.main === module) {
-  setupSSLContent();
-}
-
-module.exports = { setupSSLContent }; 
+// Run the setup
+setupContent()
+  .then(() => {
+    console.log('🎉 Setup completed successfully!');
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error('💥 Setup failed:', error);
+    process.exit(1);
+  }); 
