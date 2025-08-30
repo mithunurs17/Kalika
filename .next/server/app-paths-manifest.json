@@ -1,7 +1,5 @@
 {
   "/api/syllabus/route": "app/api/syllabus/route.js",
   "/page": "app/page.js",
-  "/splash/page": "app/splash/page.js",
-  "/syllabus/page": "app/syllabus/page.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/splash/page": "app/splash/page.js"
 }

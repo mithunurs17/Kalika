@@ -7,8 +7,11 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const classParam = searchParams.get('class');
     const subject = searchParams.get('subject');
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '100'); // Default limit to prevent memory issues
+    const offset = (page - 1) * limit;
 
-    console.log('📚 Fetching syllabus...', { class: classParam, subject });
+    console.log('📚 Fetching syllabus...', { class: classParam, subject, page, limit });
 
     // Test database connection
     const dbConnected = await testConnection();
@@ -32,7 +35,9 @@ export async function GET(req: NextRequest) {
       params.push(subject);
     }
 
-    sql += ' ORDER BY class, subject, chapter_number';
+    // Add pagination
+    sql += ' ORDER BY class, subject, chapter_number LIMIT $' + (paramIndex) + ' OFFSET $' + (paramIndex + 1);
+    params.push(limit, offset);
 
     console.log('🔍 Executing SQL:', sql, 'with params:', params);
 
@@ -75,7 +80,35 @@ export async function GET(req: NextRequest) {
 
     console.log('✅ Syllabus grouped successfully:', Object.keys(syllabus));
 
-    return NextResponse.json({ syllabus });
+    // Get total count for pagination
+    let countSql = 'SELECT COUNT(*) as total FROM syllabus';
+    let countParams: any[] = [];
+    let countParamIndex = 1;
+
+    if (classParam) {
+      countSql += ` WHERE class = $${countParamIndex}`;
+      countParams.push(classParam);
+      countParamIndex++;
+    }
+
+    if (subject) {
+      countSql += classParam ? ' AND' : ' WHERE';
+      countSql += ` subject = $${countParamIndex}`;
+      countParams.push(subject);
+    }
+
+    const countResult = await query(countSql, countParams);
+    const total = parseInt(countResult.rows[0]?.total || '0');
+
+    return NextResponse.json({ 
+      syllabus,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit)
+      }
+    });
 
   } catch (error) {
     console.error('❌ Syllabus fetch error:', error);
@@ -83,5 +116,50 @@ export async function GET(req: NextRequest) {
       error: 'Failed to fetch syllabus',
       details: process.env.NODE_ENV === 'development' ? error.message : undefined
     }, { status: 500 });
+  }
+}
+
+// HEAD method to get just the count without fetching data
+export async function HEAD(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const classParam = searchParams.get('class');
+    const subject = searchParams.get('subject');
+
+    const dbConnected = await testConnection();
+    if (!dbConnected) {
+      return NextResponse.json({ error: 'Database connection failed' }, { status: 500 });
+    }
+
+    let countSql = 'SELECT COUNT(*) as total FROM syllabus';
+    let countParams: any[] = [];
+    let countParamIndex = 1;
+
+    if (classParam) {
+      countSql += ` WHERE class = $${countParamIndex}`;
+      countParams.push(classParam);
+      countParamIndex++;
+    }
+
+    if (subject) {
+      countSql += classParam ? ' AND' : ' WHERE';
+      countSql += ` subject = $${countParamIndex}`;
+      countParams.push(subject);
+    }
+
+    const countResult = await query(countSql, countParams);
+    const total = parseInt(countResult.rows[0]?.total || '0');
+
+    return new NextResponse(null, {
+      status: 200,
+      headers: {
+        'X-Total-Count': total.toString(),
+        'Content-Type': 'application/json'
+      }
+    });
+
+  } catch (error) {
+    console.error('❌ Syllabus count error:', error);
+    return new NextResponse(null, { status: 500 });
   }
 } 
