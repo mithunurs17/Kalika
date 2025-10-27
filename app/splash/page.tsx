@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import EducationAnimation from "@/components/education-animation";
 
 export default function SplashPage() {
   const router = useRouter();
@@ -24,32 +25,16 @@ export default function SplashPage() {
         <div className="w-[340px] h-[340px] rounded-full border-4 border-pink-400/30 animate-pulse-slow" />
         <div className="w-[420px] h-[420px] rounded-full border-2 border-blue-400/20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-spin-slow" />
       </div>
-      {/* Content */}
+      {/* Content: replace 'Why Choose Kalika' section with an education animation */}
       <div className="relative z-10 flex flex-col items-center justify-center w-full h-full animate-fade-in-up">
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-8 drop-shadow-lg text-center">
-          Why Choose <span className="text-pink-400">Kalika</span>?
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl px-4">
-          <div className="rounded-xl bg-[#181a2f]/80 border border-[#23243a] p-6 text-white shadow-xl backdrop-blur-md card-hover">
-            <div className="text-pink-400 text-2xl font-bold mb-2">01</div>
-            <div className="font-semibold mb-1">Personalized AI Learning</div>
-            <div className="text-sm text-pink-100">Get tailored study plans and instant help from our AI chatbot, designed for NCERT students.</div>
-          </div>
-          <div className="rounded-xl bg-[#181a2f]/80 border border-[#23243a] p-6 text-white shadow-xl backdrop-blur-md card-hover">
-            <div className="text-pink-400 text-2xl font-bold mb-2">02</div>
-            <div className="font-semibold mb-1">Gamified Progress</div>
-            <div className="text-sm text-pink-100">Earn points, badges, and rewards as you learn and stay motivated for your board exams.</div>
-          </div>
-          <div className="rounded-xl bg-[#181a2f]/80 border border-[#23243a] p-6 text-white shadow-xl backdrop-blur-md card-hover">
-            <div className="text-pink-400 text-2xl font-bold mb-2">03</div>
-            <div className="font-semibold mb-1">Regional Language Support</div>
-            <div className="text-sm text-pink-100">Study in your preferred language—Kannada, Hindi, English, and more.</div>
-          </div>
-          <div className="rounded-xl bg-[#181a2f]/80 border border-[#23243a] p-6 text-white shadow-xl backdrop-blur-md card-hover">
-            <div className="text-pink-400 text-2xl font-bold mb-2">04</div>
-            <div className="font-semibold mb-1">Smart Analytics</div>
-            <div className="text-sm text-pink-100">Track your progress with detailed analytics and personalized recommendations.</div>
-          </div>
+        <div className="mb-6 text-center">
+          <h1 className="text-3xl md:text-4xl font-bold text-white drop-shadow-lg">Welcome to</h1>
+          <div className="text-4xl md:text-5xl font-extrabold text-pink-400">Kalika</div>
+        </div>
+        <div>
+          {/* Lazy import the animation component for clarity */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <EducationAnimation />
         </div>
       </div>
       {/* Fade overlay for style */}
