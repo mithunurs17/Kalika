@@ -57,6 +57,7 @@ export function ChatbotInterface() {
     if (!input.trim()) return;
 
     const userMessage: Message = {
+      id: `user-${Date.now()}`,
       role: "user",
       content: input,
       timestamp: new Date(),
@@ -107,6 +108,7 @@ export function ChatbotInterface() {
       }
 
       const assistantMessage: Message = {
+        id: `assistant-${Date.now()}`,
         role: "assistant",
         content: data.response,
         timestamp: new Date(),

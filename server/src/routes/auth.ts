@@ -273,8 +273,8 @@ router.post('/refresh', asyncHandler(async (req, res) => {
         expires_in: 7 * 24 * 60 * 60, // 7 days in seconds
       },
     });
-  } catch (error) {
-    if (error.name === 'JsonWebTokenError') {
+  } catch (error: any) {
+    if (error?.name === 'JsonWebTokenError') {
       throw createError.unauthorized('Invalid refresh token');
     }
     throw error;
@@ -395,8 +395,8 @@ router.post('/reset-password', asyncHandler(async (req, res) => {
       success: true,
       message: 'Password reset successfully. Please login with your new password.',
     });
-  } catch (error) {
-    if (error.name === 'JsonWebTokenError') {
+  } catch (error: any) {
+    if (error?.name === 'JsonWebTokenError') {
       throw createError.unauthorized('Invalid reset token');
     }
     throw error;

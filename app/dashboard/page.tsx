@@ -31,7 +31,7 @@ export default function DashboardPage() {
               Class {user?.class || '10th'}
             </Badge>
             <Badge variant="outline" className="text-sm">
-              {user?.points || 0} Points
+              {(user as any)?.points || 0} Points
             </Badge>
           </div>
         </div>

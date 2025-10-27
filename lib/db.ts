@@ -17,8 +17,8 @@ pool.on('connect', () => {
   console.log('✅ Connected to PostgreSQL database');
 });
 
-pool.on('error', (err) => {
-  console.error('❌ Database connection error:', err.message);
+pool.on('error', (err: any) => {
+  console.error('❌ Database connection error:', err?.message || err);
 });
 
 export async function query(text: string, params?: any[]) {

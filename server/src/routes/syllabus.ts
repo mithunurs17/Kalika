@@ -97,14 +97,14 @@ router.get('/', asyncHandler(async (req, res) => {
   const totalCount = parseInt(countResult.rows[0].count);
 
   // Apply sorting and pagination
-  sql += ` ORDER BY ${sort_by} ${sort_order.toUpperCase() === 'DESC' ? 'DESC' : 'ASC'}`;
+  sql += ` ORDER BY ${sort_by} ${String(sort_order).toUpperCase() === 'DESC' ? 'DESC' : 'ASC'}`;
   sql += ` LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
   params.push(parseInt(limit as string), (parseInt(page as string) - 1) * parseInt(limit as string));
 
   const result = await query(sql, params);
 
   // Group by class and subject
-  const syllabus = result.rows.reduce((acc: any, row) => {
+  const syllabus = result.rows.reduce((acc: any, row: any) => {
     if (!acc[row.class]) {
       acc[row.class] = {};
     }
@@ -310,7 +310,7 @@ router.post('/bulk', verifyToken, requireAdmin, asyncHandler(async (req, res) =>
     data: {
       class: value.class,
       subjects_count: value.subjects.length,
-      total_chapters: value.subjects.reduce((acc, subj) => acc + subj.chapters.length, 0),
+  total_chapters: value.subjects.reduce((acc: number, subj: any) => acc + subj.chapters.length, 0),
     },
   });
 }));

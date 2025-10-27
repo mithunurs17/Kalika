@@ -149,7 +149,7 @@ router.get('/', asyncHandler(async (req, res) => {
   const totalCount = parseInt(countResult.rows[0].count);
 
   // Apply sorting and pagination
-  sql += ` ORDER BY ${sort_by} ${sort_order.toUpperCase() === 'DESC' ? 'DESC' : 'ASC'}`;
+  sql += ` ORDER BY ${sort_by} ${String(sort_order).toUpperCase() === 'DESC' ? 'DESC' : 'ASC'}`;
   sql += ` LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
   params.push(parseInt(limit as string), (parseInt(page as string) - 1) * parseInt(limit as string));
 
@@ -371,8 +371,8 @@ router.delete('/:id', verifyToken, requireAdmin, asyncHandler(async (req, res) =
   if (content.file_path && fs.existsSync(content.file_path)) {
     try {
       fs.unlinkSync(content.file_path);
-    } catch (error) {
-      contentLogger.warn('Failed to delete content file', { error: error.message });
+    } catch (error: any) {
+      contentLogger.warn('Failed to delete content file', { error: error?.message || String(error) });
     }
   }
 
@@ -400,7 +400,7 @@ router.post('/bulk', verifyToken, requireAdmin, asyncHandler(async (req, res) =>
     contents: value.contents.length 
   });
 
-  const createdContents = [];
+  const createdContents: any[] = [];
 
   await transaction(async (client) => {
     for (const content of value.contents) {
@@ -471,7 +471,7 @@ router.get('/subject/:subject/chapter/:chapter', asyncHandler(async (req, res) =
   const result = await query(sql, params);
 
   // Group by content type
-  const groupedContent = result.rows.reduce((acc: any, content) => {
+  const groupedContent = result.rows.reduce((acc: any, content: any) => {
     if (!acc[content.content_type]) {
       acc[content.content_type] = [];
     }

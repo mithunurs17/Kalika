@@ -148,7 +148,7 @@ export const generateToken = (payload: Omit<JWTPayload, 'iat' | 'exp'>): string 
     throw new Error('JWT_SECRET not configured');
   }
 
-  return jwt.sign(payload, secret, {
+  return (jwt.sign as any)(payload, secret, {
     expiresIn: process.env.JWT_EXPIRES_IN || '7d',
     issuer: 'kalika-backend',
     audience: 'kalika-frontend',
@@ -205,7 +205,7 @@ export const generateRefreshToken = (userId: number): string => {
     throw new Error('JWT_REFRESH_SECRET not configured');
   }
 
-  return jwt.sign({ id: userId }, secret, {
+  return (jwt.sign as any)({ id: userId }, secret, {
     expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '30d',
     issuer: 'kalika-backend',
     audience: 'kalika-frontend',

@@ -1,5 +1,5 @@
 import 'express-async-errors';
-import express from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -7,8 +7,7 @@ import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import { logger } from './utils/logger';
-import { errorHandler } from './middleware/errorHandler';
-import { notFoundHandler } from './middleware/notFoundHandler';
+import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 import { connectDatabase } from './database/connection';
 import { setupCronJobs } from './utils/cronJobs';
 
@@ -73,7 +72,7 @@ app.use(morgan('combined', {
 }));
 
 // Health check endpoint
-app.get('/health', (_req: any, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { status: string; timestamp: string; uptime: number; environment: string; }): void; new(): any; }; }; }) => {
+app.get('/health', (_req: Request, res: Response) => {
   res.status(200).json({
     status: 'OK',
     timestamp: new Date().toISOString(),

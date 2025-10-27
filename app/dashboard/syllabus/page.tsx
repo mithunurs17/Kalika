@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { BookOpen, Clock, Target, CheckCircle, PlayCircle, FileText, Users, Award, Progress } from "lucide-react";
+import { BookOpen, Clock, Target, CheckCircle, PlayCircle, FileText, Users, Award } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
 import { useAuth } from "@/components/providers/auth-provider";
 import BackToDashboardButton from "@/components/ui/back-to-dashboard";
 
@@ -92,17 +93,17 @@ export default function DashboardSyllabusPage() {
         '9th Grade': '9th Grade'
       };
       
-      const syllabusClassName = classMapping[user?.class || ''] || user?.class;
+  const syllabusClassName = (classMapping[user?.class || ''] || user?.class) ?? '';
       console.log('Mapped class name:', syllabusClassName);
       
-      const response = await fetch(`/api/syllabus?class=${encodeURIComponent(syllabusClassName)}`);
+  const response = await fetch(`/api/syllabus?class=${encodeURIComponent(syllabusClassName || '')}`);
       if (response.ok) {
         const data = await response.json();
         console.log('Syllabus API response:', data);
         setSyllabus(data.syllabus);
 
         // Set default subject
-        const userClassSyllabus = data.syllabus[syllabusClassName] || {};
+  const userClassSyllabus = syllabusClassName ? (data.syllabus[syllabusClassName] || {}) : {};
         const subjects = Object.keys(userClassSyllabus);
         console.log('Available subjects:', subjects);
         if (subjects.length > 0) {

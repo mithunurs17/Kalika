@@ -11,6 +11,8 @@ import { BookOpen, BarChart2, Calendar, LayoutDashboard, BookText, GraduationCap
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+import type { LucideIcon } from 'lucide-react';
+
 interface SidebarItem {
   title: string;
   icon: LucideIcon;

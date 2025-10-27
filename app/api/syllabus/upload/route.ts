@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       subjects: syllabusData.subjects.length
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ Syllabus upload error:', error);
     return NextResponse.json({ 
       error: 'Failed to upload syllabus',

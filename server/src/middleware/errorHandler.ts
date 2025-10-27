@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, RequestHandler } from 'express';
 import { logger } from '../utils/logger';
 
 export interface AppError extends Error {
@@ -92,7 +92,7 @@ export const notFoundHandler = (req: Request, res: Response): void => {
 };
 
 // Async error wrapper
-export const asyncHandler = (fn: Function) => {
+export const asyncHandler = (fn: RequestHandler): RequestHandler => {
   return (req: Request, res: Response, next: NextFunction) => {
     Promise.resolve(fn(req, res, next)).catch(next);
   };

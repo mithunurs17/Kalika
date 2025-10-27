@@ -25,14 +25,22 @@
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
       "static/chunks/main-app.js",
+      "static/chunks/common.js",
       "static/chunks/app/api/syllabus/route.js"
     ],
-    "/syllabus/page": [
+    "/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
       "static/chunks/main-app.js",
       "static/chunks/common.js",
-      "static/chunks/app/syllabus/page.js"
+      "static/chunks/app/login/page.js"
+    ],
+    "/api/auth/login/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/api/auth/login/route.js"
     ],
     "/register/page": [
       "static/chunks/webpack.js",
@@ -41,19 +49,67 @@
       "static/chunks/common.js",
       "static/chunks/app/register/page.js"
     ],
-    "/pricing/page": [
+    "/api/auth/register/route": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
       "static/chunks/main-app.js",
       "static/chunks/common.js",
-      "static/chunks/app/pricing/page.js"
+      "static/chunks/app/api/auth/register/route.js"
     ],
-    "/about/page": [
+    "/dashboard/layout": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
       "static/chunks/main-app.js",
       "static/chunks/common.js",
-      "static/chunks/app/about/page.js"
+      "static/chunks/app/dashboard/layout.js"
+    ],
+    "/dashboard/not-found": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/not-found.js"
+    ],
+    "/dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/dashboard/page.js"
+    ],
+    "/api/progress/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/api/progress/route.js"
+    ],
+    "/api/quiz/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/api/quiz/route.js"
+    ],
+    "/api/user/profile/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/api/user/profile/route.js"
+    ],
+    "/dashboard/syllabus/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/dashboard/syllabus/page.js"
+    ],
+    "/dashboard/profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/dashboard/profile/page.js"
     ]
   }
 }

@@ -118,7 +118,7 @@ router.get('/', asyncHandler(async (req, res) => {
   const totalCount = parseInt(countResult.rows[0].count);
 
   // Apply sorting and pagination
-  sql += ` ORDER BY ${sort_by} ${sort_order.toUpperCase() === 'DESC' ? 'DESC' : 'ASC'}`;
+  sql += ` ORDER BY ${sort_by} ${String(sort_order).toUpperCase() === 'DESC' ? 'DESC' : 'ASC'}`;
   sql += ` LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`;
   params.push(parseInt(limit as string), (parseInt(page as string) - 1) * parseInt(limit as string));
 
@@ -311,8 +311,8 @@ router.delete('/:id', verifyToken, requireAdmin, asyncHandler(async (req, res) =
         }
       }
     }
-  } catch (error) {
-    videoLogger.warn('Failed to delete some video files', { error: error.message });
+  } catch (error: any) {
+    videoLogger.warn('Failed to delete some video files', { error: error?.message || String(error) });
   }
 
   // Delete from database
@@ -435,10 +435,10 @@ async function getVideoInfo(videoPath: string): Promise<any> {
       const audioStream = metadata.streams.find((stream: any) => stream.codec_type === 'audio');
 
       resolve({
-        duration: Math.round(metadata.format.duration / 60), // Convert to minutes
-        size: metadata.format.size,
-        bitrate: metadata.format.bit_rate,
-        format: metadata.format.format_name,
+        duration: Math.round((metadata.format?.duration ?? 0) / 60), // Convert to minutes
+        size: metadata.format?.size,
+        bitrate: metadata.format?.bit_rate,
+        format: metadata.format?.format_name,
         video: {
           codec: videoStream?.codec_name,
           width: videoStream?.width,
@@ -514,8 +514,8 @@ async function generateQualityVersions(videoPath: string, videoFileName: string)
           .on('error', reject)
           .run();
       });
-    } catch (error) {
-      videoLogger.warn(`Failed to generate ${quality.name} quality version`, { error: error.message });
+    } catch (error: any) {
+      videoLogger.warn(`Failed to generate ${quality.name} quality version`, { error: error?.message || String(error) });
     }
   }
 

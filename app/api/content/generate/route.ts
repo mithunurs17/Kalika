@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
       message: 'Study content generated successfully'
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ Content generation error:', error);
     return NextResponse.json({ 
       error: 'Failed to generate study content',

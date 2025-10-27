@@ -24,14 +24,14 @@ export async function POST(req: NextRequest) {
     // Check if user already exists
     console.log('🔍 Checking if user exists:', email);
     const existing = await query('SELECT id FROM users WHERE email = $1', [email]);
-    if (existing.rowCount > 0) {
+    if ((existing?.rowCount ?? 0) > 0) {
       console.log('❌ Email already registered:', email);
       return NextResponse.json({ error: 'Email already registered' }, { status: 409 });
     }
 
-    // Hash password and create user
-    console.log('🔐 Hashing password...');
-    const password_hash = await bcrypt.hash(password, 10);
+  // Hash password and create user
+  console.log('🔐 Hashing password...');
+  const password_hash = await (bcrypt.hash as any)(password, 10);
     
     console.log('📝 Creating new user...');
     await query(
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
     console.log('✅ User registered successfully:', email);
     return NextResponse.json({ success: true, message: 'Registration successful' });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ Registration error:', error);
     return NextResponse.json({ 
       error: 'Server error during registration',

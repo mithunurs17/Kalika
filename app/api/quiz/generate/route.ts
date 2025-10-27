@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
       message: `Generated ${quizQuestions.length} questions`
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ Quiz generation error:', error);
     return NextResponse.json({ 
       error: 'Failed to generate quiz questions',

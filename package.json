@@ -78,6 +78,8 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/pg": "^8.15.5",
     "browserslist": "^4.27.0",
     "caniuse-lite": "^1.0.30001751"
   }

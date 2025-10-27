@@ -1,8 +1,14 @@
 {
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/auth/register/route": "app/api/auth/register/route.js",
+  "/api/progress/route": "app/api/progress/route.js",
+  "/api/quiz/route": "app/api/quiz/route.js",
+  "/api/user/profile/route": "app/api/user/profile/route.js",
   "/api/syllabus/route": "app/api/syllabus/route.js",
   "/page": "app/page.js",
-  "/splash/page": "app/splash/page.js",
+  "/login/page": "app/login/page.js",
   "/register/page": "app/register/page.js",
-  "/pricing/page": "app/pricing/page.js",
-  "/about/page": "app/about/page.js"
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/syllabus/page": "app/dashboard/syllabus/page.js",
+  "/dashboard/profile/page": "app/dashboard/profile/page.js"
 }

@@ -32,9 +32,9 @@ export async function POST(req: NextRequest) {
 
     const user = result.rows[0];
     
-    // Verify password
-    console.log('🔐 Verifying password...');
-    const valid = await bcrypt.compare(password, user.password_hash);
+  // Verify password
+  console.log('🔐 Verifying password...');
+  const valid = await (bcrypt.compare as any)(password, user.password_hash);
     if (!valid) {
       console.log('❌ Invalid password for user:', email);
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       message: 'Login successful'
     });
     
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ Login error:', error);
     return NextResponse.json({ 
       error: 'Server error during login',
