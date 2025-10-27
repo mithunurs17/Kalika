@@ -7,7 +7,7 @@ const nextConfig = {
   images: { unoptimized: true },
   // Memory optimization settings
   experimental: {
-    memoryBasedWorkers: true,
+    // memoryBasedWorkers: true,
   },
   // Increase memory limit for large data processing
   webpack: (config, { isServer }) => {
