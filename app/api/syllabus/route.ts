@@ -35,9 +35,18 @@ export async function GET(req: NextRequest) {
       params.push(subject);
     }
 
-    // Add pagination
-    sql += ' ORDER BY class, subject, chapter_number LIMIT $' + (paramIndex) + ' OFFSET $' + (paramIndex + 1);
-    params.push(limit, offset);
+    // For home page display (no specific class), fetch all classes without pagination
+    // For specific class requests, use pagination
+    if (!classParam && !subject) {
+      // Home page: fetch all classes to show complete overview
+      sql += ' ORDER BY class, subject, chapter_number';
+      console.log('🏠 Home page request: fetching all classes without pagination');
+    } else {
+      // Specific class/subject request: use pagination
+      sql += ' ORDER BY class, subject, chapter_number LIMIT $' + (paramIndex) + ' OFFSET $' + (paramIndex + 1);
+      params.push(limit, offset);
+      console.log('📖 Specific request: using pagination');
+    }
 
     console.log('🔍 Executing SQL:', sql, 'with params:', params);
 
@@ -45,7 +54,7 @@ export async function GET(req: NextRequest) {
     console.log('📊 Found', result.rows.length, 'syllabus records');
 
     // Group by class and subject
-    const syllabus = result.rows.reduce((acc: any, row) => {
+    const syllabus = result.rows.reduce((acc: any, row: any) => {
       if (!acc[row.class]) {
         acc[row.class] = {};
       }
@@ -80,25 +89,35 @@ export async function GET(req: NextRequest) {
 
     console.log('✅ Syllabus grouped successfully:', Object.keys(syllabus));
 
-    // Get total count for pagination
-    let countSql = 'SELECT COUNT(*) as total FROM syllabus';
-    let countParams: any[] = [];
-    let countParamIndex = 1;
+    // Get total count for pagination (only for specific requests)
+    let total = 0;
+    let totalPages = 1;
+    
+    if (classParam || subject) {
+      let countSql = 'SELECT COUNT(*) as total FROM syllabus';
+      let countParams: any[] = [];
+      let countParamIndex = 1;
 
-    if (classParam) {
-      countSql += ` WHERE class = $${countParamIndex}`;
-      countParams.push(classParam);
-      countParamIndex++;
+      if (classParam) {
+        countSql += ` WHERE class = $${countParamIndex}`;
+        countParams.push(classParam);
+        countParamIndex++;
+      }
+
+      if (subject) {
+        countSql += classParam ? ' AND' : ' WHERE';
+        countSql += ` subject = $${countParamIndex}`;
+        countParams.push(subject);
+      }
+
+      const countResult = await query(countSql, countParams);
+      total = parseInt(countResult.rows[0]?.total || '0');
+      totalPages = Math.ceil(total / limit);
+    } else {
+      // For home page, get total count of all records
+      const countResult = await query('SELECT COUNT(*) as total FROM syllabus');
+      total = parseInt(countResult.rows[0]?.total || '0');
     }
-
-    if (subject) {
-      countSql += classParam ? ' AND' : ' WHERE';
-      countSql += ` subject = $${countParamIndex}`;
-      countParams.push(subject);
-    }
-
-    const countResult = await query(countSql, countParams);
-    const total = parseInt(countResult.rows[0]?.total || '0');
 
     return NextResponse.json({ 
       syllabus,
@@ -106,11 +125,12 @@ export async function GET(req: NextRequest) {
         page,
         limit,
         total,
-        totalPages: Math.ceil(total / limit)
+        totalPages,
+        isHomePage: !classParam && !subject
       }
     });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ Syllabus fetch error:', error);
     return NextResponse.json({ 
       error: 'Failed to fetch syllabus',

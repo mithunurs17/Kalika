@@ -1,0 +1,1206 @@
+{
+  "class": "9th Grade",
+  "subjects": [
+    {
+      "name": "Mathematics",
+      "chapters": [
+        {
+          "number": 1,
+          "name": "Number Systems",
+          "topics": [
+            "Real Numbers",
+            "Rational Numbers",
+            "Irrational Numbers",
+            "Decimal Expansions",
+            "Operations on Real Numbers",
+            "Laws of Exponents",
+            "Rationalization"
+          ],
+          "learning_objectives": [
+            "Understand the real number system",
+            "Learn about rational and irrational numbers",
+            "Master decimal expansions",
+            "Apply operations on real numbers",
+            "Use laws of exponents",
+            "Perform rationalization"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 2,
+          "name": "Introduction to Euclid's Geometry",
+          "topics": [
+            "Euclid's Definitions",
+            "Axioms and Postulates",
+            "Theorems",
+            "Proofs in Geometry",
+            "Geometric Constructions",
+            "Logical Reasoning"
+          ],
+          "learning_objectives": [
+            "Understand Euclid's approach to geometry",
+            "Learn about axioms and postulates",
+            "Master geometric proofs",
+            "Apply logical reasoning",
+            "Perform geometric constructions"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 3,
+          "name": "Lines and Angles",
+          "topics": [
+            "Basic Terms and Definitions",
+            "Types of Angles",
+            "Pairs of Angles",
+            "Linear Pair",
+            "Vertically Opposite Angles",
+            "Parallel Lines and Transversal",
+            "Angle Sum Property of Triangle"
+          ],
+          "learning_objectives": [
+            "Understand basic geometric terms",
+            "Learn about different types of angles",
+            "Study angle relationships",
+            "Apply angle sum property",
+            "Work with parallel lines"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 4,
+          "name": "Polynomials",
+          "topics": [
+            "Polynomials in One Variable",
+            "Zeroes of a Polynomial",
+            "Remainder Theorem",
+            "Factor Theorem",
+            "Factorization of Polynomials",
+            "Algebraic Identities"
+          ],
+          "learning_objectives": [
+            "Understand polynomial concepts",
+            "Find zeroes of polynomials",
+            "Apply remainder and factor theorems",
+            "Factorize polynomials",
+            "Use algebraic identities"
+          ],
+          "duration_hours": 18
+        },
+        {
+          "number": 5,
+          "name": "Triangles",
+          "topics": [
+            "Congruence of Triangles",
+            "Criteria for Congruence",
+            "Properties of Triangles",
+            "Inequalities in Triangles",
+            "Right-Angled Triangles",
+            "Pythagoras Theorem"
+          ],
+          "learning_objectives": [
+            "Understand triangle congruence",
+            "Apply congruence criteria",
+            "Study triangle properties",
+            "Learn triangle inequalities",
+            "Master Pythagoras theorem"
+          ],
+          "duration_hours": 20
+        },
+        {
+          "number": 6,
+          "name": "Constructions",
+          "topics": [
+            "Basic Constructions",
+            "Construction of Triangles",
+            "Construction of Perpendiculars",
+            "Construction of Angle Bisectors",
+            "Construction of Parallel Lines"
+          ],
+          "learning_objectives": [
+            "Master basic geometric constructions",
+            "Construct triangles with given conditions",
+            "Draw perpendiculars and angle bisectors",
+            "Construct parallel lines",
+            "Use compass and ruler effectively"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 7,
+          "name": "Quadrilaterals",
+          "topics": [
+            "Types of Quadrilaterals",
+            "Properties of Parallelograms",
+            "Properties of Rectangles",
+            "Properties of Squares",
+            "Properties of Rhombuses",
+            "Mid-point Theorem"
+          ],
+          "learning_objectives": [
+            "Understand different types of quadrilaterals",
+            "Learn properties of special quadrilaterals",
+            "Apply mid-point theorem",
+            "Solve problems using quadrilateral properties"
+          ],
+          "duration_hours": 18
+        },
+        {
+          "number": 8,
+          "name": "Heron's Formula",
+          "topics": [
+            "Area of Triangle",
+            "Heron's Formula",
+            "Application of Heron's Formula",
+            "Area of Quadrilaterals",
+            "Practical Problems"
+          ],
+          "learning_objectives": [
+            "Understand Heron's formula",
+            "Calculate area of triangles",
+            "Apply formula to quadrilaterals",
+            "Solve practical area problems"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 9,
+          "name": "Coordinate Geometry",
+          "topics": [
+            "Cartesian System",
+            "Plotting Points",
+            "Distance Formula",
+            "Section Formula",
+            "Mid-point Formula",
+            "Area of Triangle using Coordinates"
+          ],
+          "learning_objectives": [
+            "Understand coordinate system",
+            "Plot points on coordinate plane",
+            "Calculate distances and mid-points",
+            "Find area using coordinates"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 10,
+          "name": "Linear Equations in Two Variables",
+          "topics": [
+            "Linear Equations",
+            "Solution of Linear Equations",
+            "Graphical Method",
+            "Algebraic Method",
+            "Word Problems",
+            "Applications"
+          ],
+          "learning_objectives": [
+            "Understand linear equations in two variables",
+            "Solve equations graphically and algebraically",
+            "Apply to real-world problems"
+          ],
+          "duration_hours": 18
+        },
+        {
+          "number": 11,
+          "name": "Areas of Parallelograms and Triangles",
+          "topics": [
+            "Area of Parallelograms",
+            "Area of Triangles",
+            "Parallelograms on Same Base",
+            "Triangles on Same Base",
+            "Equal Areas and Equal Bases"
+          ],
+          "learning_objectives": [
+            "Calculate areas of parallelograms and triangles",
+            "Understand area relationships",
+            "Apply area concepts to solve problems"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 12,
+          "name": "Circles",
+          "topics": [
+            "Basic Terms",
+            "Tangent to a Circle",
+            "Number of Tangents from a Point",
+            "Length of Tangent",
+            "Properties of Tangents"
+          ],
+          "learning_objectives": [
+            "Understand circle properties",
+            "Learn about tangents",
+            "Apply circle theorems"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 13,
+          "name": "Surface Areas and Volumes",
+          "topics": [
+            "Surface Area of Cubes",
+            "Surface Area of Cuboids",
+            "Surface Area of Cylinders",
+            "Surface Area of Cones",
+            "Surface Area of Spheres",
+            "Volume of Solids"
+          ],
+          "learning_objectives": [
+            "Calculate surface areas of 3D shapes",
+            "Find volumes of solids",
+            "Solve practical problems"
+          ],
+          "duration_hours": 18
+        },
+        {
+          "number": 14,
+          "name": "Statistics",
+          "topics": [
+            "Collection of Data",
+            "Presentation of Data",
+            "Graphical Representation",
+            "Measures of Central Tendency",
+            "Mean, Median, Mode"
+          ],
+          "learning_objectives": [
+            "Collect and present data",
+            "Create graphs and charts",
+            "Calculate measures of central tendency"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 15,
+          "name": "Probability",
+          "topics": [
+            "Experimental Probability",
+            "Theoretical Probability",
+            "Probability of Events",
+            "Complementary Events",
+            "Applications"
+          ],
+          "learning_objectives": [
+            "Understand probability concepts",
+            "Calculate experimental and theoretical probability",
+            "Apply probability to real situations"
+          ],
+          "duration_hours": 12
+        }
+      ]
+    },
+    {
+      "name": "Science",
+      "chapters": [
+        {
+          "number": 1,
+          "name": "Matter in Our Surroundings",
+          "topics": [
+            "Physical Nature of Matter",
+            "Characteristics of Particles of Matter",
+            "States of Matter",
+            "Change of State",
+            "Evaporation",
+            "Factors Affecting Evaporation"
+          ],
+          "learning_objectives": [
+            "Understand physical nature of matter",
+            "Learn about particle characteristics",
+            "Study different states of matter",
+            "Understand state changes and evaporation"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 2,
+          "name": "Is Matter Around Us Pure",
+          "topics": [
+            "What is a Mixture?",
+            "Types of Mixtures",
+            "Solutions",
+            "Suspensions",
+            "Colloids",
+            "Separation of Mixtures"
+          ],
+          "learning_objectives": [
+            "Understand mixtures and their types",
+            "Learn about solutions, suspensions, and colloids",
+            "Master separation techniques"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 3,
+          "name": "Atoms and Molecules",
+          "topics": [
+            "Laws of Chemical Combination",
+            "Dalton's Atomic Theory",
+            "Atoms",
+            "Molecules",
+            "Ions",
+            "Writing Chemical Formulae"
+          ],
+          "learning_objectives": [
+            "Understand laws of chemical combination",
+            "Learn Dalton's atomic theory",
+            "Study atoms, molecules, and ions",
+            "Write chemical formulae"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 4,
+          "name": "Structure of the Atom",
+          "topics": [
+            "Charged Particles in Matter",
+            "The Structure of an Atom",
+            "How are Electrons Distributed?",
+            "Valency",
+            "Atomic Number and Mass Number"
+          ],
+          "learning_objectives": [
+            "Understand atomic structure",
+            "Learn about electron distribution",
+            "Study valency and atomic numbers"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 5,
+          "name": "The Fundamental Unit of Life",
+          "topics": [
+            "What are Living Organisms Made Up of?",
+            "What is a Cell Made Up of?",
+            "What is the Structural Organization of a Cell?"
+          ],
+          "learning_objectives": [
+            "Understand cell as basic unit of life",
+            "Learn cell structure and organization",
+            "Study cell components"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 6,
+          "name": "Tissues",
+          "topics": [
+            "Are Plants and Animals Made of Same Types of Tissues?",
+            "Plant Tissues",
+            "Animal Tissues"
+          ],
+          "learning_objectives": [
+            "Understand different types of tissues",
+            "Compare plant and animal tissues",
+            "Study tissue structure and function"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 7,
+          "name": "Diversity in Living Organisms",
+          "topics": [
+            "What is the Basis of Classification?",
+            "Classification and Evolution",
+            "The Hierarchy of Classification Groups",
+            "Plantae",
+            "Animalia"
+          ],
+          "learning_objectives": [
+            "Understand basis of classification",
+            "Learn about classification hierarchy",
+            "Study plant and animal kingdoms"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 8,
+          "name": "Motion",
+          "topics": [
+            "Describing Motion",
+            "Measuring the Rate of Motion",
+            "Rate of Change of Velocity",
+            "Graphical Representation of Motion",
+            "Equations of Motion by Graphical Method"
+          ],
+          "learning_objectives": [
+            "Describe motion and its characteristics",
+            "Calculate speed and velocity",
+            "Understand acceleration",
+            "Represent motion graphically"
+          ],
+          "duration_hours": 18
+        },
+        {
+          "number": 9,
+          "name": "Force and Laws of Motion",
+          "topics": [
+            "Balanced and Unbalanced Forces",
+            "First Law of Motion",
+            "Inertia and Mass",
+            "Second Law of Motion",
+            "Third Law of Motion",
+            "Conservation of Momentum"
+          ],
+          "learning_objectives": [
+            "Understand balanced and unbalanced forces",
+            "Learn Newton's laws of motion",
+            "Study inertia and momentum",
+            "Apply conservation laws"
+          ],
+          "duration_hours": 20
+        },
+        {
+          "number": 10,
+          "name": "Gravitation",
+          "topics": [
+            "Gravitation",
+            "Universal Law of Gravitation",
+            "Free Fall",
+            "Mass",
+            "Weight",
+            "Thrust and Pressure"
+          ],
+          "learning_objectives": [
+            "Understand universal law of gravitation",
+            "Learn about free fall",
+            "Distinguish between mass and weight",
+            "Study thrust and pressure"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 11,
+          "name": "Work and Energy",
+          "topics": [
+            "Work",
+            "Energy",
+            "Rate of Doing Work",
+            "Forms of Energy",
+            "Kinetic Energy",
+            "Potential Energy",
+            "Conservation of Energy"
+          ],
+          "learning_objectives": [
+            "Understand work and energy concepts",
+            "Learn about different forms of energy",
+            "Study conservation of energy",
+            "Calculate work and power"
+          ],
+          "duration_hours": 18
+        },
+        {
+          "number": 12,
+          "name": "Sound",
+          "topics": [
+            "Production of Sound",
+            "Propagation of Sound",
+            "Reflection of Sound",
+            "Range of Hearing",
+            "Applications of Ultrasound",
+            "Structure of Human Ear"
+          ],
+          "learning_objectives": [
+            "Understand sound production and propagation",
+            "Learn about sound reflection",
+            "Study human hearing range",
+            "Explore ultrasound applications"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 13,
+          "name": "Why Do We Fall Ill",
+          "topics": [
+            "Health and its Failure",
+            "Disease and its Causes",
+            "Infectious Diseases",
+            "Prevention of Diseases",
+            "Principles of Treatment"
+          ],
+          "learning_objectives": [
+            "Understand health and disease concepts",
+            "Learn about disease causes and prevention",
+            "Study treatment principles"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 14,
+          "name": "Natural Resources",
+          "topics": [
+            "Air",
+            "Water",
+            "Soil",
+            "Biogeochemical Cycles",
+            "Ozone Layer",
+            "Greenhouse Effect"
+          ],
+          "learning_objectives": [
+            "Understand natural resources",
+            "Study biogeochemical cycles",
+            "Learn about environmental issues"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 15,
+          "name": "Improvement in Food Resources",
+          "topics": [
+            "Improvement in Crop Yields",
+            "Animal Husbandry",
+            "Fish Production",
+            "Bee-keeping"
+          ],
+          "learning_objectives": [
+            "Understand crop improvement methods",
+            "Learn about animal husbandry",
+            "Study fish production and bee-keeping"
+          ],
+          "duration_hours": 10
+        }
+      ]
+    },
+    {
+      "name": "Social Science",
+      "chapters": [
+        {
+          "number": 1,
+          "name": "History - Christianity and Islam",
+          "topics": [
+            "Spread of Christianity",
+            "Rise of Islam",
+            "Crusades",
+            "Cultural Exchange",
+            "Impact on Society"
+          ],
+          "learning_objectives": [
+            "Understand spread of Christianity and Islam",
+            "Learn about Crusades and cultural exchange",
+            "Study impact on medieval society"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 2,
+          "name": "History - Medieval India and Political Transition",
+          "topics": [
+            "Early Medieval Period",
+            "Political Changes",
+            "Administrative Systems",
+            "Social Structure",
+            "Economic Conditions"
+          ],
+          "learning_objectives": [
+            "Understand medieval Indian history",
+            "Study political transitions",
+            "Learn about administrative and social systems"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 3,
+          "name": "History - Religious Promoters and Social Reformers",
+          "topics": [
+            "Bhakti Movement",
+            "Sufi Movement",
+            "Social Reformers",
+            "Religious Syncretism",
+            "Impact on Society"
+          ],
+          "learning_objectives": [
+            "Study Bhakti and Sufi movements",
+            "Learn about social reformers",
+            "Understand religious syncretism"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 4,
+          "name": "History - Vijayanagara and Bahmani Kingdoms",
+          "topics": [
+            "Vijayanagara Empire",
+            "Bahmani Kingdom",
+            "Political Conflicts",
+            "Cultural Achievements",
+            "Architecture and Art"
+          ],
+          "learning_objectives": [
+            "Understand Vijayanagara and Bahmani kingdoms",
+            "Study political conflicts and achievements",
+            "Learn about architecture and art"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 5,
+          "name": "Political Science - Our Constitution",
+          "topics": [
+            "Constitutional Development",
+            "Constituent Assembly",
+            "Preamble",
+            "Fundamental Rights",
+            "Directive Principles"
+          ],
+          "learning_objectives": [
+            "Understand constitutional development",
+            "Study Constituent Assembly",
+            "Learn about fundamental rights and directive principles"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 6,
+          "name": "Political Science - The Union Government",
+          "topics": [
+            "Parliament",
+            "Executive",
+            "Judiciary",
+            "Separation of Powers",
+            "Federal Structure"
+          ],
+          "learning_objectives": [
+            "Understand Union government structure",
+            "Study three organs of government",
+            "Learn about separation of powers"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 7,
+          "name": "Political Science - State Government",
+          "topics": [
+            "State Legislature",
+            "State Executive",
+            "Governor",
+            "Chief Minister",
+            "State-Center Relations"
+          ],
+          "learning_objectives": [
+            "Understand state government structure",
+            "Study state legislature and executive",
+            "Learn about state-center relations"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 8,
+          "name": "Sociology - Family",
+          "topics": [
+            "Types of Family",
+            "Family Structure",
+            "Family Functions",
+            "Family Changes",
+            "Modern Family"
+          ],
+          "learning_objectives": [
+            "Understand different types of families",
+            "Study family structure and functions",
+            "Learn about family changes"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 9,
+          "name": "Sociology - Socialization",
+          "topics": [
+            "Process of Socialization",
+            "Agents of Socialization",
+            "Primary and Secondary Socialization",
+            "Socialization and Personality",
+            "Socialization Across Cultures"
+          ],
+          "learning_objectives": [
+            "Understand socialization process",
+            "Study agents of socialization",
+            "Learn about socialization and personality"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 10,
+          "name": "Geography - Our State – Karnataka",
+          "topics": [
+            "Location and Extent",
+            "Physical Features",
+            "Climate",
+            "Natural Resources",
+            "Population"
+          ],
+          "learning_objectives": [
+            "Understand Karnataka's geography",
+            "Study physical features and climate",
+            "Learn about natural resources and population"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 11,
+          "name": "Geography - Physiographic Divisions of Karnataka",
+          "topics": [
+            "Western Ghats",
+            "Malnad Region",
+            "Maidan Region",
+            "Coastal Region",
+            "Geological Features"
+          ],
+          "learning_objectives": [
+            "Study Karnataka's physiographic divisions",
+            "Understand geological features",
+            "Learn about regional characteristics"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 12,
+          "name": "Geography - Climate, Soil, Natural Vegetation and Animals",
+          "topics": [
+            "Climate of Karnataka",
+            "Soil Types",
+            "Natural Vegetation",
+            "Wildlife",
+            "Conservation"
+          ],
+          "learning_objectives": [
+            "Understand Karnataka's climate",
+            "Study soil types and vegetation",
+            "Learn about wildlife and conservation"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 13,
+          "name": "Geography - Water Resources",
+          "topics": [
+            "Rivers of Karnataka",
+            "Lakes and Reservoirs",
+            "Groundwater",
+            "Water Conservation",
+            "Irrigation"
+          ],
+          "learning_objectives": [
+            "Study Karnataka's water resources",
+            "Understand water conservation",
+            "Learn about irrigation systems"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 14,
+          "name": "Geography - Land Resources of Karnataka",
+          "topics": [
+            "Land Use Pattern",
+            "Agriculture",
+            "Forests",
+            "Minerals",
+            "Land Conservation"
+          ],
+          "learning_objectives": [
+            "Understand land use patterns",
+            "Study agriculture and forests",
+            "Learn about mineral resources"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 15,
+          "name": "Economics - Natural Resources",
+          "topics": [
+            "Types of Resources",
+            "Resource Conservation",
+            "Sustainable Development",
+            "Environmental Issues",
+            "Resource Management"
+          ],
+          "learning_objectives": [
+            "Understand different types of resources",
+            "Learn about resource conservation",
+            "Study sustainable development"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 16,
+          "name": "Economics - Human Resources of India",
+          "topics": [
+            "Population Growth",
+            "Population Distribution",
+            "Demographic Features",
+            "Human Development",
+            "Population Policy"
+          ],
+          "learning_objectives": [
+            "Understand population characteristics",
+            "Study demographic features",
+            "Learn about human development"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 17,
+          "name": "Business Studies - Management of Business",
+          "topics": [
+            "Business Management",
+            "Management Functions",
+            "Organizational Structure",
+            "Leadership",
+            "Decision Making"
+          ],
+          "learning_objectives": [
+            "Understand business management",
+            "Study management functions",
+            "Learn about organizational structure"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 18,
+          "name": "History - The Moghuls and The Marathas",
+          "topics": [
+            "Mughal Empire",
+            "Maratha Empire",
+            "Political Conflicts",
+            "Administrative Systems",
+            "Cultural Contributions"
+          ],
+          "learning_objectives": [
+            "Study Mughal and Maratha empires",
+            "Understand political conflicts",
+            "Learn about cultural contributions"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 19,
+          "name": "History - Bhakti Panth",
+          "topics": [
+            "Bhakti Movement",
+            "Saints and Reformers",
+            "Religious Philosophy",
+            "Social Impact",
+            "Cultural Influence"
+          ],
+          "learning_objectives": [
+            "Understand Bhakti movement",
+            "Study saints and reformers",
+            "Learn about social and cultural impact"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 20,
+          "name": "History - Europe in the Middle Ages",
+          "topics": [
+            "Feudalism",
+            "Medieval Society",
+            "Economic System",
+            "Cultural Life",
+            "Religious Institutions"
+          ],
+          "learning_objectives": [
+            "Understand medieval European society",
+            "Study feudalism and economic systems",
+            "Learn about cultural and religious life"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 21,
+          "name": "History - Modern Europe",
+          "topics": [
+            "Renaissance",
+            "Reformation",
+            "Age of Exploration",
+            "Industrial Revolution",
+            "Modernization"
+          ],
+          "learning_objectives": [
+            "Study Renaissance and Reformation",
+            "Understand age of exploration",
+            "Learn about industrial revolution"
+          ],
+          "duration_hours": 16
+        },
+        {
+          "number": 22,
+          "name": "History - Revolution and Unification of Nations",
+          "topics": [
+            "French Revolution",
+            "American Revolution",
+            "Unification of Germany",
+            "Unification of Italy",
+            "Impact on World"
+          ],
+          "learning_objectives": [
+            "Understand major revolutions",
+            "Study unification movements",
+            "Learn about global impact"
+          ],
+          "duration_hours": 18
+        },
+        {
+          "number": 23,
+          "name": "Political Science - Judicial System",
+          "topics": [
+            "Structure of Judiciary",
+            "Supreme Court",
+            "High Courts",
+            "Judicial Review",
+            "Public Interest Litigation"
+          ],
+          "learning_objectives": [
+            "Understand judicial system structure",
+            "Study Supreme Court and High Courts",
+            "Learn about judicial review and PIL"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 24,
+          "name": "Political Science - Indian Election System",
+          "topics": [
+            "Electoral System",
+            "Election Commission",
+            "Voting Process",
+            "Electoral Reforms",
+            "Democratic Participation"
+          ],
+          "learning_objectives": [
+            "Understand Indian electoral system",
+            "Study Election Commission",
+            "Learn about voting process and reforms"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 25,
+          "name": "Political Science - Defense of the Nation",
+          "topics": [
+            "Armed Forces",
+            "Defense Policy",
+            "National Security",
+            "Border Security",
+            "Defense Cooperation"
+          ],
+          "learning_objectives": [
+            "Understand defense structure",
+            "Study national security",
+            "Learn about defense cooperation"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 26,
+          "name": "Political Science - National Integration",
+          "topics": [
+            "Unity in Diversity",
+            "Nationalism",
+            "Regionalism",
+            "Communalism",
+            "Secularism"
+          ],
+          "learning_objectives": [
+            "Understand unity in diversity",
+            "Study nationalism and regionalism",
+            "Learn about secularism"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 27,
+          "name": "Sociology - Social Change",
+          "topics": [
+            "Nature of Social Change",
+            "Factors of Social Change",
+            "Social Movements",
+            "Modernization",
+            "Globalization"
+          ],
+          "learning_objectives": [
+            "Understand social change",
+            "Study factors of change",
+            "Learn about social movements"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 28,
+          "name": "Sociology - Community",
+          "topics": [
+            "Types of Communities",
+            "Community Life",
+            "Social Organization",
+            "Community Development",
+            "Rural and Urban Communities"
+          ],
+          "learning_objectives": [
+            "Understand different types of communities",
+            "Study community life and organization",
+            "Learn about community development"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 29,
+          "name": "Geography - Mineral Resources",
+          "topics": [
+            "Types of Minerals",
+            "Mineral Distribution",
+            "Mining",
+            "Conservation",
+            "Environmental Impact"
+          ],
+          "learning_objectives": [
+            "Understand mineral resources",
+            "Study mineral distribution",
+            "Learn about mining and conservation"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 30,
+          "name": "Geography - Transport",
+          "topics": [
+            "Road Transport",
+            "Rail Transport",
+            "Water Transport",
+            "Air Transport",
+            "Transport Networks"
+          ],
+          "learning_objectives": [
+            "Study different modes of transport",
+            "Understand transport networks",
+            "Learn about transport development"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 31,
+          "name": "Geography - Industries of Karnataka",
+          "topics": [
+            "Types of Industries",
+            "Industrial Development",
+            "Major Industrial Centers",
+            "Industrial Policy",
+            "Employment Generation"
+          ],
+          "learning_objectives": [
+            "Understand industrial development",
+            "Study major industrial centers",
+            "Learn about industrial policy"
+          ],
+          "duration_hours": 14
+        },
+        {
+          "number": 32,
+          "name": "Geography - Major Tourist Centres",
+          "topics": [
+            "Tourist Destinations",
+            "Cultural Heritage",
+            "Natural Attractions",
+            "Tourism Development",
+            "Economic Benefits"
+          ],
+          "learning_objectives": [
+            "Study major tourist centers",
+            "Understand cultural heritage",
+            "Learn about tourism development"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 33,
+          "name": "Geography - Population of Karnataka",
+          "topics": [
+            "Population Growth",
+            "Population Distribution",
+            "Demographic Features",
+            "Migration",
+            "Population Policy"
+          ],
+          "learning_objectives": [
+            "Understand population characteristics",
+            "Study demographic features",
+            "Learn about population policy"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 34,
+          "name": "Economics - Poverty and Hunger",
+          "topics": [
+            "Poverty Line",
+            "Causes of Poverty",
+            "Hunger and Malnutrition",
+            "Poverty Alleviation",
+            "Food Security"
+          ],
+          "learning_objectives": [
+            "Understand poverty concepts",
+            "Study causes of poverty",
+            "Learn about poverty alleviation"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 35,
+          "name": "Economics - Labour and Employment",
+          "topics": [
+            "Types of Employment",
+            "Labour Market",
+            "Unemployment",
+            "Labour Laws",
+            "Employment Generation"
+          ],
+          "learning_objectives": [
+            "Understand employment types",
+            "Study labour market",
+            "Learn about labour laws"
+          ],
+          "duration_hours": 12
+        },
+        {
+          "number": 36,
+          "name": "Business Studies - Financial Management",
+          "topics": [
+            "Financial Planning",
+            "Capital Structure",
+            "Investment Decisions",
+            "Risk Management",
+            "Financial Control"
+          ],
+          "learning_objectives": [
+            "Understand financial management",
+            "Study capital structure",
+            "Learn about investment decisions"
+          ],
+          "duration_hours": 10
+        },
+        {
+          "number": 37,
+          "name": "Business Studies - Accounting in Business",
+          "topics": [
+            "Basic Accounting",
+            "Financial Statements",
+            "Book Keeping",
+            "Auditing",
+            "Business Ethics"
+          ],
+          "learning_objectives": [
+            "Understand basic accounting",
+            "Study financial statements",
+            "Learn about business ethics"
+          ],
+          "duration_hours": 12
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total_subjects": 3,
+    "total_chapters": 67,
+    "subjects_breakdown": {
+      "Mathematics": 15,
+      "Science": 15,
+      "Social Science": 37
+    }
+  }
+}

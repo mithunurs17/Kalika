@@ -19,31 +19,31 @@ class DatabaseConnection {
 
   constructor() {
     const config: DatabaseConfig = {
-      host: process.env.DB_HOST || 'localhost',
-      port: parseInt(process.env.DB_PORT || '5432'),
-      database: process.env.DB_NAME || 'kalika',
-      user: process.env.DB_USER || 'postgres',
-      password: process.env.DB_PASSWORD || '',
-      ssl: process.env.NODE_ENV === 'production',
-      max: parseInt(process.env.DB_MAX_CONNECTIONS || '20'),
-      idleTimeoutMillis: parseInt(process.env.DB_IDLE_TIMEOUT || '30000'),
-      connectionTimeoutMillis: parseInt(process.env.DB_CONNECTION_TIMEOUT || '2000'),
+      host: process.env['DB_HOST'] || 'localhost',
+      port: parseInt(process.env['DB_PORT'] || '5432'),
+      database: process.env['DB_NAME'] || 'kalika',
+      user: process.env['DB_USER'] || 'postgres',
+      password: process.env['DB_PASSWORD'] || '',
+      ssl: process.env['NODE_ENV'] === 'production',
+      max: parseInt(process.env['DB_MAX_CONNECTIONS'] || '20'),
+      idleTimeoutMillis: parseInt(process.env['DB_IDLE_TIMEOUT'] || '30000'),
+      connectionTimeoutMillis: parseInt(process.env['DB_CONNECTION_TIMEOUT'] || '2000'),
     };
 
     this.pool = new Pool(config);
 
     // Event listeners
-    this.pool.on('connect', (client: PoolClient) => {
+    this.pool.on('connect', (_client: PoolClient) => {
       logger.info('🔌 New database client connected');
       this.isConnected = true;
     });
 
-    this.pool.on('error', (err: Error, client: PoolClient) => {
+    this.pool.on('error', (err: Error, _client: PoolClient) => {
       logger.error('❌ Database client error:', err.message);
       this.isConnected = false;
     });
 
-    this.pool.on('remove', (client: PoolClient) => {
+    this.pool.on('remove', (_client: PoolClient) => {
       logger.info('🔌 Database client removed from pool');
     });
 
