@@ -1,8 +1,8 @@
 {
+  "/api/syllabus/route": "app/api/syllabus/route.js",
+  "/page": "app/page.js",
+  "/splash/page": "app/splash/page.js",
   "/register/page": "app/register/page.js",
-  "/login/page": "app/login/page.js",
-  "/syllabus/page": "app/syllabus/page.js",
-  "/dashboard/quizzes/page": "app/dashboard/quizzes/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/syllabus/page": "app/dashboard/syllabus/page.js"
+  "/pricing/page": "app/pricing/page.js",
+  "/about/page": "app/about/page.js"
 }
