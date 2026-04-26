@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -29,8 +29,12 @@ interface QuizTakerProps {
 interface QuizResult {
   score: number;
   totalQuestions: number;
-  answers: number[];
+  answers: (number | null)[];
   timestamp: Date;
+  timeTaken: number;
+  accuracy: number;
+  wrongCount: number;
+  analysis: string;
 }
 
 export default function QuizTaker({
@@ -40,6 +44,7 @@ export default function QuizTaker({
   questions,
   onSubmit,
 }: QuizTakerProps) {
+  const timerRef = useRef<number | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(questions.length).fill(null));
   const [showExplanation, setShowExplanation] = useState(false);
@@ -47,9 +52,21 @@ export default function QuizTaker({
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => setTimeSpent(prev => prev + 1), 1000);
-    return () => clearInterval(timer);
-  }, []);
+    if (isSubmitted) {
+      if (timerRef.current) {
+        window.clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+      return;
+    }
+
+    timerRef.current = window.setInterval(() => setTimeSpent(prev => prev + 1), 1000);
+    return () => {
+      if (timerRef.current) {
+        window.clearInterval(timerRef.current);
+      }
+    };
+  }, [isSubmitted]);
 
   const handleAnswer = (optionIndex: number) => {
     const newAnswers = [...answers];
@@ -81,7 +98,18 @@ export default function QuizTaker({
       return answer === questions[index].correct_answer ? count + 1 : count;
     }, 0);
 
+    const wrongCount = questions.length - score;
+    const accuracy = questions.length > 0 ? (score / questions.length) * 100 : 0;
+    const analysis = wrongCount === 0
+      ? 'Excellent work! You answered every question correctly. Keep practicing to maintain your mastery.'
+      : `You answered ${score} out of ${questions.length} correctly. Review the explanations for the ${wrongCount} incorrect question${wrongCount > 1 ? 's' : ''} and focus on the concepts you found difficult.`;
+
     setIsSubmitted(true);
+
+    if (timerRef.current) {
+      window.clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
 
     if (onSubmit) {
       onSubmit({
@@ -89,6 +117,10 @@ export default function QuizTaker({
         totalQuestions: questions.length,
         answers,
         timestamp: new Date(),
+        timeTaken: timeSpent,
+        accuracy: parseFloat(accuracy.toFixed(1)),
+        wrongCount,
+        analysis,
       });
     }
   };
@@ -109,6 +141,8 @@ export default function QuizTaker({
   const currentAnswer = answers[currentQuestion];
   const isAnswered = currentAnswer !== null;
   const isCorrect = currentAnswer === currentQ?.correct_answer;
+  const wrongCount = questions.length - calculateScore();
+  const accuracy = questions.length > 0 ? (calculateScore() / questions.length) * 100 : 0;
 
   if (!currentQ) {
     return <div>No questions available</div>;
@@ -240,6 +274,38 @@ export default function QuizTaker({
           </div>
         </CardContent>
       </Card>
+
+      {isSubmitted && (
+        <Card className="border-emerald-200 bg-emerald-50">
+          <CardHeader>
+            <CardTitle className="text-lg">Quiz Analysis</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="rounded-lg border border-emerald-200 bg-white p-4">
+                <p className="text-sm text-muted-foreground">Score</p>
+                <p className="text-2xl font-semibold">{calculateScore()}/{questions.length}</p>
+              </div>
+              <div className="rounded-lg border border-emerald-200 bg-white p-4">
+                <p className="text-sm text-muted-foreground">Time Taken</p>
+                <p className="text-2xl font-semibold">{formatTime(timeSpent)}</p>
+              </div>
+              <div className="rounded-lg border border-emerald-200 bg-white p-4">
+                <p className="text-sm text-muted-foreground">Accuracy</p>
+                <p className="text-2xl font-semibold">{accuracy.toFixed(1)}%</p>
+              </div>
+              <div className="rounded-lg border border-emerald-200 bg-white p-4">
+                <p className="text-sm text-muted-foreground">Incorrect</p>
+                <p className="text-2xl font-semibold">{wrongCount}</p>
+              </div>
+            </div>
+            <div className="rounded-lg border border-emerald-200 bg-white p-4">
+              <p className="font-semibold mb-2">Analysis</p>
+              <p>{wrongCount === 0 ? 'Perfect score! Keep reviewing to stay sharp.' : `Review the explanations for the ${wrongCount} question${wrongCount > 1 ? 's' : ''} you missed and revisit the key concepts.`}</p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Question Navigation */}
       <Card>

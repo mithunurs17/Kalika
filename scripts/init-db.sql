@@ -54,11 +54,22 @@ CREATE TABLE IF NOT EXISTS quiz_results (
     user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
     subject VARCHAR(100) NOT NULL,
     topic VARCHAR(100),
+    difficulty VARCHAR(20) DEFAULT 'medium',
     score INTEGER,
     total_questions INTEGER,
+    duration_seconds INTEGER DEFAULT 0,
+    answers JSONB DEFAULT '[]',
+    correct_answers JSONB DEFAULT '[]',
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status VARCHAR(20) DEFAULT 'completed'
 );
+
+ALTER TABLE quiz_results ADD COLUMN IF NOT EXISTS topic VARCHAR(100);
+ALTER TABLE quiz_results ADD COLUMN IF NOT EXISTS difficulty VARCHAR(20) DEFAULT 'medium';
+ALTER TABLE quiz_results ADD COLUMN IF NOT EXISTS duration_seconds INTEGER DEFAULT 0;
+ALTER TABLE quiz_results ADD COLUMN IF NOT EXISTS answers JSONB DEFAULT '[]';
+ALTER TABLE quiz_results ADD COLUMN IF NOT EXISTS correct_answers JSONB DEFAULT '[]';
+ALTER TABLE quiz_results ADD COLUMN IF NOT EXISTS status VARCHAR(20) DEFAULT 'completed';
 
 -- Quiz questions table
 CREATE TABLE IF NOT EXISTS quiz_questions (

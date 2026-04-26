@@ -31,6 +31,9 @@ interface QuizResult {
   totalQuestions: number;
   percentage: number;
   pointsAwarded: number;
+  timeTaken?: number;
+  wrongCount?: number;
+  analysis?: string;
 }
 
 export default function QuizzesPage() {
@@ -129,6 +132,7 @@ export default function QuizzesPage() {
           answers: result.answers,
           correct_answers: currentQuestion.map((q) => q.correct_answer),
           difficulty,
+          timeTaken: result.timeTaken,
         }),
       });
 
@@ -291,8 +295,12 @@ export default function QuizzesPage() {
                           <p className="text-sm text-muted-foreground">{quiz.topic}</p>
                         </CardHeader>
                         <CardContent>
-                          <div className="text-sm text-muted-foreground">
-                            {new Date(quiz.date).toLocaleDateString()}
+                          <div className="flex flex-col gap-2 text-sm text-muted-foreground">
+                            <span>{new Date(quiz.date).toLocaleDateString()}</span>
+                            {quiz.duration_seconds !== undefined && (
+                              <span>Time: {Math.floor(quiz.duration_seconds / 60)}m {quiz.duration_seconds % 60}s</span>
+                            )}
+                            {quiz.difficulty && <span>Difficulty: {quiz.difficulty}</span>}
                           </div>
                         </CardContent>
                       </Card>
@@ -350,6 +358,34 @@ export default function QuizzesPage() {
                   </CardContent>
                 </Card>
               </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <Card>
+                  <CardContent className="pt-6 text-center">
+                    <div className="text-3xl font-bold text-slate-700">
+                      {quizResult.timeTaken ? `${Math.floor(quizResult.timeTaken / 60)}m ${quizResult.timeTaken % 60}s` : "--"}
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-2">Time Taken</p>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="pt-6 text-center">
+                    <div className="text-3xl font-bold text-slate-700">
+                      {quizResult.wrongCount ?? 0}
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-2">Incorrect Answers</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {quizResult.analysis && (
+                <Card className="border border-slate-200 bg-white">
+                  <CardContent>
+                    <p className="font-semibold">Analysis</p>
+                    <p className="text-sm text-muted-foreground mt-2">{quizResult.analysis}</p>
+                  </CardContent>
+                </Card>
+              )}
 
               <Button onClick={resetQuiz} className="w-full" size="lg">
                 Take Another Quiz

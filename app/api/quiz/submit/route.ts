@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Database connection failed' }, { status: 500 });
     }
 
-    const { user_id, subject, topic, answers, correct_answers, difficulty } = await req.json();
+    const { user_id, subject, topic, answers, correct_answers, difficulty, timeTaken } = await req.json();
 
     if (!user_id || !subject || !answers || !correct_answers) {
       return NextResponse.json(
@@ -28,13 +28,14 @@ export async function POST(req: NextRequest) {
     }
 
     const totalQuestions = answers.length;
+    const durationSeconds = typeof timeTaken === 'number' ? Math.max(0, Math.round(timeTaken)) : 0;
 
     // Save quiz result to database
     const result = await query(
-      `INSERT INTO quiz_results (user_id, subject, topic, score, total_questions, status) 
-       VALUES ($1, $2, $3, $4, $5, 'completed')
+      `INSERT INTO quiz_results (user_id, subject, topic, difficulty, score, total_questions, duration_seconds, answers, status) 
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, 'completed')
        RETURNING *`,
-      [user_id, subject, topic || '', score, totalQuestions]
+      [user_id, subject, topic || '', difficulty || 'medium', score, totalQuestions, durationSeconds, JSON.stringify(answers)]
     );
 
     // Update user progress
@@ -49,6 +50,7 @@ export async function POST(req: NextRequest) {
 
     // Award points based on performance
     const percentage = (score / totalQuestions) * 100;
+    const wrongCount = totalQuestions - score;
     let pointsAwarded = 0;
 
     if (percentage === 100) {
@@ -65,12 +67,19 @@ export async function POST(req: NextRequest) {
 
     console.log(`✅ Quiz submitted: ${score}/${totalQuestions} (${percentage.toFixed(1)}%)`);
 
+    const analysis = wrongCount === 0
+      ? 'Perfect score! Keep practicing to maintain your mastery.'
+      : `You answered ${score} out of ${totalQuestions} correctly. Review the questions you missed and revisit those concepts.`;
+
     return NextResponse.json({
       success: true,
       score,
       totalQuestions,
       percentage: parseFloat((percentage).toFixed(1)),
       pointsAwarded,
+      timeTaken: durationSeconds,
+      wrongCount,
+      analysis,
       result: result.rows[0]
     });
 
