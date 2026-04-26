@@ -51,6 +51,15 @@ export default function QuizTaker({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [resultVisible, setResultVisible] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [cardPosition, setCardPosition] = useState({ x: 0, y: 20 });
+  const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCardPosition({ x: Math.max(20, window.innerWidth - 460), y: 20 });
+    }
+  }, []);
 
   useEffect(() => {
     if (isSubmitted) {
@@ -69,6 +78,29 @@ export default function QuizTaker({
       }
     };
   }, [isSubmitted]);
+
+  const handleDragStart = (event: React.PointerEvent<HTMLDivElement>) => {
+    setDragStart({
+      x: event.clientX - cardPosition.x,
+      y: event.clientY - cardPosition.y,
+    });
+    setIsDragging(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handleDragMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragStart) return;
+
+    const nextX = Math.max(0, Math.min(event.clientX - dragStart.x, window.innerWidth - 440));
+    const nextY = Math.max(0, event.clientY - dragStart.y);
+    setCardPosition({ x: nextX, y: nextY });
+  };
+
+  const handleDragEnd = (event: React.PointerEvent<HTMLDivElement>) => {
+    setDragStart(null);
+    setIsDragging(false);
+    event.currentTarget.releasePointerCapture(event.pointerId);
+  };
 
   const handleAnswer = (optionIndex: number) => {
     const newAnswers = [...answers];
@@ -268,8 +300,30 @@ export default function QuizTaker({
       </Card>
 
       {isSubmitted && (
-        <div className="fixed inset-x-0 top-20 z-50 flex justify-center px-4 lg:px-0">
-          <Card className={`w-full max-w-3xl border-emerald-200 bg-emerald-50 shadow-2xl transform transition duration-500 ease-out ${resultVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-6 scale-95'}`}>
+        <div
+          className={`fixed z-50 transition duration-500 ease-out ${resultVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-6 scale-95'}`}
+          style={{
+            top: cardPosition.y,
+            left: cardPosition.x,
+            width: 'min(100%, 420px)',
+          }}
+        >
+          <Card className="border-emerald-200 bg-emerald-50 shadow-2xl">
+            <div
+              className={`flex items-center justify-between gap-2 rounded-t-2xl border-b border-emerald-200 bg-emerald-100 px-4 py-3 ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+              onPointerDown={handleDragStart}
+              onPointerMove={handleDragMove}
+              onPointerUp={handleDragEnd}
+              onPointerCancel={handleDragEnd}
+            >
+              <div>
+                <p className="text-sm font-semibold text-slate-700">Drag to move</p>
+                <p className="text-xs text-slate-500">Move this card out of the way whenever you need.</p>
+              </div>
+              <Button variant="ghost" size="sm" onClick={() => setResultVisible(false)}>
+                Close
+              </Button>
+            </div>
             <CardHeader>
               <CardTitle className="text-lg">Quiz Analysis</CardTitle>
             </CardHeader>

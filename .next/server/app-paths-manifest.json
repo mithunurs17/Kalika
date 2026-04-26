@@ -1,8 +1,8 @@
 {
   "/api/quiz/submit/route": "app/api/quiz/submit/route.js",
-  "/dashboard/quizzes/page": "app/dashboard/quizzes/page.js",
+  "/login/page": "app/login/page.js",
+  "/splash/page": "app/splash/page.js",
+  "/page": "app/page.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/progress/page": "app/dashboard/progress/page.js",
-  "/dashboard/planner/page": "app/dashboard/planner/page.js",
-  "/dashboard/syllabus/page": "app/dashboard/syllabus/page.js"
+  "/dashboard/quizzes/page": "app/dashboard/quizzes/page.js"
 }
