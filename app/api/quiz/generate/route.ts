@@ -26,9 +26,11 @@ export async function POST(req: NextRequest) {
     let syllabusContext = '';
     if (syllabusResult.rows.length > 0) {
       const syllabus = syllabusResult.rows[0];
+      const topics = parseSyllabusField(syllabus.topics);
+      const learningObjectives = parseSyllabusField(syllabus.learning_objectives);
       syllabusContext = `
-        Topics: ${syllabus.topics ? JSON.parse(syllabus.topics).join(', ') : ''}
-        Learning Objectives: ${syllabus.learning_objectives ? JSON.parse(syllabus.learning_objectives).join(', ') : ''}
+        Topics: ${topics.join(', ')}
+        Learning Objectives: ${learningObjectives.join(', ')}
       `;
     }
 
@@ -152,6 +154,34 @@ async function generateQuizQuestions(subject: string, chapter: string, topic: st
     // Fallback to sample questions
     return generateSampleQuestions(subject, chapter, count);
   }
+}
+
+function parseSyllabusField(field: any) {
+  if (!field) {
+    return [];
+  }
+
+  if (Array.isArray(field)) {
+    return field;
+  }
+
+  if (typeof field === 'string') {
+    try {
+      const parsed = JSON.parse(field);
+      if (Array.isArray(parsed)) {
+        return parsed;
+      }
+    } catch {
+      // not a JSON string, fall back to text parsing
+    }
+
+    return field
+      .split(/[\n,]+/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
 }
 
 function generateSampleQuestions(subject: string, chapter: string, count: number) {

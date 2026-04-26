@@ -1,13 +1,7 @@
 {
-  "/api/syllabus/route": "app/api/syllabus/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/quiz/route": "app/api/quiz/route.js",
-  "/api/progress/route": "app/api/progress/route.js",
-  "/api/user/profile/route": "app/api/user/profile/route.js",
-  "/api/quiz/generate/route": "app/api/quiz/generate/route.js",
   "/page": "app/page.js",
-  "/syllabus/page": "app/syllabus/page.js",
   "/features/page": "app/features/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/quizzes/page": "app/dashboard/quizzes/page.js"
+  "/syllabus/page": "app/syllabus/page.js",
+  "/dashboard/quizzes/page": "app/dashboard/quizzes/page.js",
+  "/dashboard/page": "app/dashboard/page.js"
 }
