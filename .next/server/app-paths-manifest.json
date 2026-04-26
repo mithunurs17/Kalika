@@ -1,7 +1,12 @@
 {
-  "/page": "app/page.js",
-  "/features/page": "app/features/page.js",
-  "/syllabus/page": "app/syllabus/page.js",
+  "/api/quiz/route": "app/api/quiz/route.js",
+  "/api/user/profile/route": "app/api/user/profile/route.js",
+  "/api/progress/route": "app/api/progress/route.js",
+  "/api/quiz/generate/route": "app/api/quiz/generate/route.js",
+  "/login/page": "app/login/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
   "/dashboard/quizzes/page": "app/dashboard/quizzes/page.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/dashboard/syllabus/page": "app/dashboard/syllabus/page.js",
+  "/dashboard/progress/page": "app/dashboard/progress/page.js",
+  "/dashboard/planner/page": "app/dashboard/planner/page.js"
 }
