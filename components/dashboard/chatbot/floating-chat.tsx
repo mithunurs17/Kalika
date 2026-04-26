@@ -26,6 +26,32 @@ export function FloatingChat() {
       timestamp: new Date(),
     },
   ]);
+
+  const formatChatMessage = (text: string) => {
+    const escapeHtml = (str: string) =>
+      str.replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#39;");
+
+    let formatted = escapeHtml(text);
+
+    formatted = formatted.replace(/\*\*(.+?)\*\*/g, (_, match) => {
+      return `<span class='font-semibold text-primary'>${match}</span>`;
+    });
+
+    formatted = formatted.replace(/\*(.+?)\*/g, (_, match) => {
+      return `<span class='italic text-slate-600 dark:text-slate-300'>${match}</span>`;
+    });
+
+    formatted = formatted.replace(/^\s*-\s+(.*)$/gm, (_, match) => {
+      return `<div class='flex gap-2'><span class='text-primary'>•</span><span>${match}</span></div>`;
+    });
+
+    formatted = formatted.replace(/\n/g, "<br />");
+    return formatted;
+  };
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);

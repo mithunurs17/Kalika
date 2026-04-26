@@ -6,7 +6,7 @@ export const runtime = 'edge';
 
 const API_KEY = process.env.OPENROUTER_API_KEY;
 const MODEL = 'nvidia/nemotron-3-super-120b-a12b:free';
-const BASE_URL = 'https://api.openrouter.ai/api/v1';
+const BASE_URL = 'https://openrouter.ai/api/v1';
 
 // This is the handler for POST requests
 export async function POST(request: Request) {
@@ -49,8 +49,8 @@ export async function POST(request: Request) {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${API_KEY}`,
-        'HTTP-Referer': 'https://kalika.vercel.app',
-        'X-Title': 'Kalika - Educational Platform',
+        'HTTP-Referer': 'https://kalika-edu.vercel.app',
+        'X-Title': 'Kalika Education Platform',
       },
       body: JSON.stringify(requestBody),
     });
