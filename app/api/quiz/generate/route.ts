@@ -105,11 +105,11 @@ async function generateQuizQuestions(subject: string, chapter: string, topic: st
         'X-Title': 'Kalika Education Platform'
       },
       body: JSON.stringify({
-        model: 'deepseek-chat/deepseek-coder-33b-instruct',
+        model: 'nvidia/nemotron-3-super-120b-a12b:free',
         messages: [
           {
             role: 'system',
-            content: 'You are an expert educational content creator specializing in creating high-quality quiz questions for NCERT curriculum.'
+            content: 'You are an expert educational content creator specializing in creating high-quality quiz questions for NCERT curriculum. Create questions that are clear, educational, and test understanding of the concepts.'
           },
           {
             role: 'user',
@@ -117,19 +117,27 @@ async function generateQuizQuestions(subject: string, chapter: string, topic: st
           }
         ],
         temperature: 0.7,
-        max_tokens: 2000
+        max_tokens: 3000
       })
     });
 
     if (!response.ok) {
-      throw new Error(`OpenRouter API error: ${response.status}`);
+      const errorData = await response.json();
+      throw new Error(`OpenRouter API error: ${response.status} - ${JSON.stringify(errorData)}`);
     }
 
     const data = await response.json();
     const content = data.choices[0].message.content;
     
-    // Parse the JSON response
-    const questions = JSON.parse(content);
+    // Parse the JSON response - handle markdown code blocks
+    let jsonString = content;
+    if (content.includes('```json')) {
+      jsonString = content.split('```json')[1].split('```')[0].trim();
+    } else if (content.includes('```')) {
+      jsonString = content.split('```')[1].split('```')[0].trim();
+    }
+    
+    const questions = JSON.parse(jsonString);
     
     // Validate and format questions
     return questions.map((q: any, index: number) => ({

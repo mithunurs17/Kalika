@@ -108,11 +108,11 @@ async function generateStudyContent(subject: string, chapter: string, topic: str
         'X-Title': 'Kalika Education Platform'
       },
       body: JSON.stringify({
-        model: 'deepseek-chat/deepseek-coder-33b-instruct',
+        model: 'nvidia/nemotron-3-super-120b-a12b:free',
         messages: [
           {
             role: 'system',
-            content: 'You are an expert educational content creator specializing in creating engaging study materials for NCERT curriculum.'
+            content: 'You are an expert educational content creator specializing in creating engaging, comprehensive study materials for NCERT curriculum. Create content that is clear, well-structured, and appropriate for the difficulty level.'
           },
           {
             role: 'user',

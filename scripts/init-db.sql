@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS quiz_results (
     score INTEGER,
     total_questions INTEGER,
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(20) DEFAULT 'completed' -- 'completed', 'missed', 'upcoming'
+    status VARCHAR(20) DEFAULT 'completed'
 );
 
 -- Quiz questions table
@@ -67,10 +67,10 @@ CREATE TABLE IF NOT EXISTS quiz_questions (
     chapter VARCHAR(100),
     topic VARCHAR(100),
     question TEXT NOT NULL,
-    options JSONB NOT NULL, -- Array of answer options
-    correct_answer INTEGER NOT NULL, -- Index of correct option
+    options JSONB NOT NULL,
+    correct_answer INTEGER NOT NULL,
     explanation TEXT,
-    difficulty VARCHAR(20) DEFAULT 'medium', -- 'easy', 'medium', 'hard'
+    difficulty VARCHAR(20) DEFAULT 'medium',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS study_content (
     topic VARCHAR(100),
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    content_type VARCHAR(50) DEFAULT 'text', -- 'text', 'video', 'interactive'
+    content_type VARCHAR(50) DEFAULT 'text',
     difficulty VARCHAR(20) DEFAULT 'medium',
     duration_minutes INTEGER DEFAULT 15,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
