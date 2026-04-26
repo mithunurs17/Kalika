@@ -96,6 +96,13 @@
       "static/chunks/main-app.js",
       "static/chunks/common.js",
       "static/chunks/app/api/quiz/submit/route.js"
+    ],
+    "/dashboard/progress/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/dashboard/progress/page.js"
     ]
   }
 }

@@ -50,6 +50,7 @@ export default function QuizTaker({
   const [timeSpent, setTimeSpent] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [resultVisible, setResultVisible] = useState(false);
+  const [isCardOpen, setIsCardOpen] = useState(false);
   const [showExplanation, setShowExplanation] = useState(false);
   const [cardPosition, setCardPosition] = useState({ x: 0, y: 20 });
   const [dragStart, setDragStart] = useState<{ x: number; y: number } | null>(null);
@@ -135,6 +136,7 @@ export default function QuizTaker({
 
     setIsSubmitted(true);
     setResultVisible(false);
+    setIsCardOpen(true);
     setShowExplanation(false);
 
     if (timerRef.current) {
@@ -299,7 +301,7 @@ export default function QuizTaker({
         </CardContent>
       </Card>
 
-      {isSubmitted && (
+      {isSubmitted && isCardOpen && (
         <div
           className={`fixed z-50 transition duration-500 ease-out ${resultVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-6 scale-95'}`}
           style={{
@@ -320,7 +322,7 @@ export default function QuizTaker({
                 <p className="text-sm font-semibold text-slate-700">Drag to move</p>
                 <p className="text-xs text-slate-500">Move this card out of the way whenever you need.</p>
               </div>
-              <Button variant="ghost" size="sm" onClick={() => setResultVisible(false)}>
+              <Button variant="secondary" size="sm" className="text-slate-700 dark:text-slate-100" onClick={() => setIsCardOpen(false)}>
                 Close
               </Button>
             </div>
@@ -329,20 +331,20 @@ export default function QuizTaker({
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-lg border border-emerald-200 bg-white p-4">
-                  <p className="text-sm text-muted-foreground">Score</p>
+                <div className="rounded-lg border border-emerald-200 bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 p-4">
+                  <p className="text-sm text-muted-foreground dark:text-slate-400">Score</p>
                   <p className="text-2xl font-semibold">{calculateScore()}/{questions.length}</p>
                 </div>
-                <div className="rounded-lg border border-emerald-200 bg-white p-4">
-                  <p className="text-sm text-muted-foreground">Time Taken</p>
+                <div className="rounded-lg border border-emerald-200 bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 p-4">
+                  <p className="text-sm text-muted-foreground dark:text-slate-400">Time Taken</p>
                   <p className="text-2xl font-semibold">{formatTime(timeSpent)}</p>
                 </div>
-                <div className="rounded-lg border border-emerald-200 bg-white p-4">
-                  <p className="text-sm text-muted-foreground">Accuracy</p>
+                <div className="rounded-lg border border-emerald-200 bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 p-4">
+                  <p className="text-sm text-muted-foreground dark:text-slate-400">Accuracy</p>
                   <p className="text-2xl font-semibold">{accuracy.toFixed(1)}%</p>
                 </div>
-                <div className="rounded-lg border border-emerald-200 bg-white p-4">
-                  <p className="text-sm text-muted-foreground">Incorrect</p>
+                <div className="rounded-lg border border-emerald-200 bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 p-4">
+                  <p className="text-sm text-muted-foreground dark:text-slate-400">Incorrect</p>
                   <p className="text-2xl font-semibold">{wrongCount}</p>
                 </div>
               </div>
