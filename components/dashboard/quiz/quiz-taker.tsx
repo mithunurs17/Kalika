@@ -50,6 +50,7 @@ export default function QuizTaker({
   const [timeSpent, setTimeSpent] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [resultVisible, setResultVisible] = useState(false);
+  const [showExplanation, setShowExplanation] = useState(false);
 
   useEffect(() => {
     if (isSubmitted) {
@@ -101,6 +102,8 @@ export default function QuizTaker({
       : `You answered ${score} out of ${questions.length} correctly. Review the explanations for the ${wrongCount} incorrect question${wrongCount > 1 ? 's' : ''} and focus on the concepts you found difficult.`;
 
     setIsSubmitted(true);
+    setResultVisible(false);
+    setShowExplanation(false);
 
     if (timerRef.current) {
       window.clearInterval(timerRef.current);
@@ -224,7 +227,7 @@ export default function QuizTaker({
           </RadioGroup>
 
           {/* Explanation */}
-          {isSubmitted && (
+          {isSubmitted && showExplanation && (
             <Alert className="bg-blue-50 border-blue-200">
               <AlertCircle className="h-4 w-4 text-blue-600" />
               <AlertDescription className="text-blue-900">
@@ -265,35 +268,47 @@ export default function QuizTaker({
       </Card>
 
       {isSubmitted && (
-        <Card className={`border-emerald-200 bg-emerald-50 transform transition duration-500 ease-out ${resultVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-6 scale-95'}`}>
-          <CardHeader>
-            <CardTitle className="text-lg">Quiz Analysis</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="rounded-lg border border-emerald-200 bg-white p-4">
-                <p className="text-sm text-muted-foreground">Score</p>
-                <p className="text-2xl font-semibold">{calculateScore()}/{questions.length}</p>
+        <div className="fixed inset-x-0 top-20 z-50 flex justify-center px-4 lg:px-0">
+          <Card className={`w-full max-w-3xl border-emerald-200 bg-emerald-50 shadow-2xl transform transition duration-500 ease-out ${resultVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-6 scale-95'}`}>
+            <CardHeader>
+              <CardTitle className="text-lg">Quiz Analysis</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="rounded-lg border border-emerald-200 bg-white p-4">
+                  <p className="text-sm text-muted-foreground">Score</p>
+                  <p className="text-2xl font-semibold">{calculateScore()}/{questions.length}</p>
+                </div>
+                <div className="rounded-lg border border-emerald-200 bg-white p-4">
+                  <p className="text-sm text-muted-foreground">Time Taken</p>
+                  <p className="text-2xl font-semibold">{formatTime(timeSpent)}</p>
+                </div>
+                <div className="rounded-lg border border-emerald-200 bg-white p-4">
+                  <p className="text-sm text-muted-foreground">Accuracy</p>
+                  <p className="text-2xl font-semibold">{accuracy.toFixed(1)}%</p>
+                </div>
+                <div className="rounded-lg border border-emerald-200 bg-white p-4">
+                  <p className="text-sm text-muted-foreground">Incorrect</p>
+                  <p className="text-2xl font-semibold">{wrongCount}</p>
+                </div>
               </div>
               <div className="rounded-lg border border-emerald-200 bg-white p-4">
-                <p className="text-sm text-muted-foreground">Time Taken</p>
-                <p className="text-2xl font-semibold">{formatTime(timeSpent)}</p>
+                <p className="font-semibold mb-2">Analysis</p>
+                <p>{wrongCount === 0 ? 'Perfect score! Keep reviewing to stay sharp.' : `Review the explanations for the ${wrongCount} question${wrongCount > 1 ? 's' : ''} you missed and revisit the key concepts.`}</p>
               </div>
-              <div className="rounded-lg border border-emerald-200 bg-white p-4">
-                <p className="text-sm text-muted-foreground">Accuracy</p>
-                <p className="text-2xl font-semibold">{accuracy.toFixed(1)}%</p>
-              </div>
-              <div className="rounded-lg border border-emerald-200 bg-white p-4">
-                <p className="text-sm text-muted-foreground">Incorrect</p>
-                <p className="text-2xl font-semibold">{wrongCount}</p>
-              </div>
-            </div>
-            <div className="rounded-lg border border-emerald-200 bg-white p-4">
-              <p className="font-semibold mb-2">Analysis</p>
-              <p>{wrongCount === 0 ? 'Perfect score! Keep reviewing to stay sharp.' : `Review the explanations for the ${wrongCount} question${wrongCount > 1 ? 's' : ''} you missed and revisit the key concepts.`}</p>
-            </div>
-          </CardContent>
-        </Card>
+
+              {!showExplanation && (
+                <div className="rounded-lg border border-emerald-200 bg-white p-4">
+                  <p className="font-semibold mb-2">Review explanations</p>
+                  <p className="text-sm text-muted-foreground mb-4">Tap the button below to reveal explanations for each question after submitting your quiz.</p>
+                  <Button onClick={() => setShowExplanation(true)} className="w-full">
+                    View Explanations
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
       )}
 
       {/* Question Navigation */}
