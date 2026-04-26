@@ -1,11 +1,7 @@
 {
-  "/api/user/profile/route": "app/api/user/profile/route.js",
-  "/api/progress/route": "app/api/progress/route.js",
-  "/api/quiz/route": "app/api/quiz/route.js",
-  "/login/page": "app/login/page.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/quizzes/page": "app/dashboard/quizzes/page.js",
   "/dashboard/syllabus/page": "app/dashboard/syllabus/page.js",
+  "/dashboard/quizzes/page": "app/dashboard/quizzes/page.js",
   "/dashboard/progress/page": "app/dashboard/progress/page.js",
   "/dashboard/planner/page": "app/dashboard/planner/page.js"
 }

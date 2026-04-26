@@ -47,9 +47,9 @@ export default function QuizTaker({
   const timerRef = useRef<number | null>(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(new Array(questions.length).fill(null));
-  const [showExplanation, setShowExplanation] = useState(false);
   const [timeSpent, setTimeSpent] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [resultVisible, setResultVisible] = useState(false);
 
   useEffect(() => {
     if (isSubmitted) {
@@ -57,7 +57,8 @@ export default function QuizTaker({
         window.clearInterval(timerRef.current);
         timerRef.current = null;
       }
-      return;
+      const timeout = window.setTimeout(() => setResultVisible(true), 100);
+      return () => window.clearTimeout(timeout);
     }
 
     timerRef.current = window.setInterval(() => setTimeSpent(prev => prev + 1), 1000);
@@ -72,11 +73,6 @@ export default function QuizTaker({
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = optionIndex;
     setAnswers(newAnswers);
-    setShowExplanation(false);
-  };
-
-  const handleShowExplanation = () => {
-    setShowExplanation(true);
   };
 
   const handleNext = () => {
@@ -228,7 +224,7 @@ export default function QuizTaker({
           </RadioGroup>
 
           {/* Explanation */}
-          {(showExplanation || isSubmitted) && (
+          {isSubmitted && (
             <Alert className="bg-blue-50 border-blue-200">
               <AlertCircle className="h-4 w-4 text-blue-600" />
               <AlertDescription className="text-blue-900">
@@ -257,18 +253,11 @@ export default function QuizTaker({
               </Button>
             </div>
 
-            {!isSubmitted && (
+            {!isSubmitted && currentQuestion === questions.length - 1 && (
               <div className="flex gap-2">
-                {!showExplanation && isAnswered && (
-                  <Button onClick={handleShowExplanation} variant="secondary">
-                    Show Explanation
-                  </Button>
-                )}
-                {currentQuestion === questions.length - 1 && (
-                  <Button onClick={handleSubmitQuiz} className="bg-green-600 hover:bg-green-700">
-                    Submit Quiz
-                  </Button>
-                )}
+                <Button onClick={handleSubmitQuiz} className="bg-green-600 hover:bg-green-700">
+                  Submit Quiz
+                </Button>
               </div>
             )}
           </div>
@@ -276,7 +265,7 @@ export default function QuizTaker({
       </Card>
 
       {isSubmitted && (
-        <Card className="border-emerald-200 bg-emerald-50">
+        <Card className={`border-emerald-200 bg-emerald-50 transform transition duration-500 ease-out ${resultVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 -translate-y-6 scale-95'}`}>
           <CardHeader>
             <CardTitle className="text-lg">Quiz Analysis</CardTitle>
           </CardHeader>
