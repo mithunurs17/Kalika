@@ -227,3 +227,59 @@
     @apply transition-opacity duration-300 ease-out;
   }
 }
+
+/* Dark mode visibility overrides for common light-only utility classes */
+.dark body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+.dark .bg-white {
+  background-color: hsl(222.2 84% 9.8%) !important;
+}
+
+.dark .bg-slate-50,
+.dark .bg-gray-50,
+.dark .bg-gray-100,
+.dark .bg-slate-100,
+.dark .bg-white\/80 {
+  background-color: hsl(222.2 84% 9.8%) !important;
+}
+
+.dark .text-slate-700,
+.dark .text-slate-900,
+.dark .text-gray-800,
+.dark .text-gray-900,
+.dark .text-muted-foreground {
+  color: hsl(210 40% 98%) !important;
+}
+
+.dark .text-muted-foreground {
+  color: hsl(215 20% 75%) !important;
+}
+
+.dark .border-slate-200,
+.dark .border-gray-200,
+.dark .border-gray-100,
+.dark .border-input,
+.dark .border-border {
+  border-color: hsl(220 10% 22%) !important;
+}
+
+.dark .bg-muted,
+.dark .bg-secondary,
+.dark .bg-accent,
+.dark .bg-destructive {
+  background-color: hsl(217.2 32.6% 17.5%) !important;
+}
+
+.dark .bg-card,
+.dark .bg-background,
+.dark .bg-popover {
+  background-color: hsl(var(--card)) !important;
+}
+
+.dark .shadow-sm,
+.dark .shadow {
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.3);
+}

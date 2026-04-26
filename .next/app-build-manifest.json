@@ -3,106 +3,115 @@
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
+      "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
+      "static/chunks/main-app.js",
       "static/chunks/app/page.js"
     ],
     "/splash/page": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
+      "static/chunks/common.js",
       "static/chunks/main-app.js",
       "static/chunks/app/splash/page.js"
     ],
     "/api/syllabus/route": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
+      "static/chunks/main-app.js",
       "static/chunks/app/api/syllabus/route.js"
+    ],
+    "/register/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/common.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/register/page.js"
     ],
     "/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
+      "static/chunks/main-app.js",
       "static/chunks/app/login/page.js"
     ],
     "/dashboard/layout": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
+      "static/chunks/main-app.js",
       "static/chunks/app/dashboard/layout.js"
     ],
     "/dashboard/not-found": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
+      "static/chunks/common.js",
       "static/chunks/main-app.js",
       "static/chunks/app/dashboard/not-found.js"
     ],
     "/dashboard/page": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
+      "static/chunks/main-app.js",
       "static/chunks/app/dashboard/page.js"
+    ],
+    "/api/user/profile/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/common.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/user/profile/route.js"
     ],
     "/api/progress/route": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
+      "static/chunks/main-app.js",
       "static/chunks/app/api/progress/route.js"
     ],
     "/api/quiz/route": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
+      "static/chunks/main-app.js",
       "static/chunks/app/api/quiz/route.js"
-    ],
-    "/api/user/profile/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
-      "static/chunks/common.js",
-      "static/chunks/app/api/user/profile/route.js"
     ],
     "/dashboard/quizzes/page": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
+      "static/chunks/main-app.js",
       "static/chunks/app/dashboard/quizzes/page.js"
     ],
     "/api/quiz/generate/route": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
+      "static/chunks/main-app.js",
       "static/chunks/app/api/quiz/generate/route.js"
     ],
     "/api/quiz/submit/route": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
+      "static/chunks/main-app.js",
       "static/chunks/app/api/quiz/submit/route.js"
     ],
-    "/dashboard/progress/page": [
+    "/dashboard/groups/page": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
-      "static/chunks/main-app.js",
       "static/chunks/common.js",
-      "static/chunks/app/dashboard/progress/page.js"
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/groups/page.js"
     ]
   }
 }
