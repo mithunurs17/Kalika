@@ -4,8 +4,8 @@ import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 export const runtime = 'edge';
 
-const API_KEY = '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';
-const MODEL = 'deepseek/deepseek-r1-0528-qwen3-8b:free';
+const API_KEY = process.env.OPENROUTER_API_KEY;
+const MODEL = 'nvidia/nemotron-3-super-120b-a12b:free';
 const BASE_URL = 'https://api.openrouter.ai/api/v1';
 
 // This is the handler for POST requests
@@ -17,7 +17,10 @@ export async function POST(request: Request) {
     const { message, language = 'english' } = await request.json();
     console.log('Request payload:', { message, language });
 
-    // Log the API request details (excluding sensitive data)
+    if (!API_KEY) {
+      throw new Error('Missing OPENROUTER_API_KEY environment variable');
+    }
+
     console.log('Making API request to OpenRouter');
 
     const requestBody = {
@@ -25,20 +28,18 @@ export async function POST(request: Request) {
       messages: [
         {
           role: 'system',
-          content: `You are an educational AI assistant for students. Always answer in a concise paragraph or, if appropriate, in clear bullet points. Focus on being clear, direct, and helpful. Your responses should be educational, informative, and focused on the NCERT curriculum. If you do not know the answer, say so honestly. Use the language specified by the user. Help students prepare for exams and understand concepts easily.
-          
-          If you don't know something, be honest and say so.`
+          content: `You are an educational AI assistant for students. Always answer every question asked, and whenever the user asks multiple questions, respond to each one clearly. Use clear examples, simple explanations, and direct teaching language. Keep answers aligned with NCERT and exam preparation. If the user asks for steps, show them in an ordered list. If the user asks for definitions, give a short definition first and then a brief explanation. Do not leave questions unanswered.`
         },
         {
           role: 'user',
           content: message
         }
       ],
-      temperature: 0.7,
-      max_tokens: 1000,
-      top_p: 0.9,
-      frequency_penalty: 0.3,
-      presence_penalty: 0.3,
+      temperature: 0.3,
+      max_tokens: 1200,
+      top_p: 0.95,
+      frequency_penalty: 0.2,
+      presence_penalty: 0.2,
     };
 
     console.log('Request body:', JSON.stringify(requestBody, null, 2));

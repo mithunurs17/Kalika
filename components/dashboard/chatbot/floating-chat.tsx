@@ -150,13 +150,15 @@ export function FloatingChat() {
   return (
     <div className="fixed bottom-4 right-4 z-50">
       {!isOpen ? (
-        <Button
-          size="lg"
-          className="h-14 w-14 rounded-full shadow-lg"
+        <button
+          type="button"
           onClick={() => setIsOpen(true)}
+          className="relative flex h-14 w-14 items-center justify-center rounded-full bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.85),transparent_40%),radial-gradient(circle_at_35%_30%,rgba(236,72,153,0.9),transparent_35%),linear-gradient(135deg,rgba(79,70,229,0.95),rgba(16,185,129,0.95))] shadow-[0_0_35px_rgba(79,70,229,0.35)] transition-transform duration-300 hover:-translate-y-1 active:scale-95"
         >
-          <MessageSquare className="h-6 w-6" />
-        </Button>
+          <span className="absolute inset-0 rounded-full opacity-80 animate-pulse-slow" />
+          <span className="absolute inset-2 rounded-full bg-white/10 blur-sm" />
+          <span className="relative h-8 w-8 rounded-full bg-white/90 shadow-[0_0_25px_rgba(255,255,255,0.75)] ring-2 ring-cyan-300 animate-[wave_1.5s_ease-in-out_infinite]" />
+        </button>
       ) : (
         <div
           className={cn(

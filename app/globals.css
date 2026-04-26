@@ -159,6 +159,17 @@
       transform: translateY(0);
     }
   }
+
+  @keyframes wave {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+      opacity: 0.98;
+    }
+    50% {
+      transform: translateY(-5px) scale(1.06);
+      opacity: 1;
+    }
+  }
   
   .animate-fade-in-up {
     animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
