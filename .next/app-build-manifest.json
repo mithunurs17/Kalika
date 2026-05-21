@@ -62,6 +62,13 @@
       "static/chunks/common.js",
       "static/chunks/app/api/quiz/route.js"
     ],
+    "/api/user/profile/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/api/user/profile/route.js"
+    ],
     "/api/progress/route": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
@@ -69,12 +76,12 @@
       "static/chunks/common.js",
       "static/chunks/app/api/progress/route.js"
     ],
-    "/api/user/profile/route": [
+    "/dashboard/syllabus/page": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
       "static/chunks/main-app.js",
       "static/chunks/common.js",
-      "static/chunks/app/api/user/profile/route.js"
+      "static/chunks/app/dashboard/syllabus/page.js"
     ],
     "/api/chat/route": [
       "static/chunks/webpack.js",
@@ -83,12 +90,33 @@
       "static/chunks/common.js",
       "static/chunks/app/api/chat/route.js"
     ],
-    "/dashboard/achievements/page": [
+    "/dashboard/quizzes/page": [
       "static/chunks/webpack.js",
       "static/chunks/vendor.js",
       "static/chunks/main-app.js",
       "static/chunks/common.js",
-      "static/chunks/app/dashboard/achievements/page.js"
+      "static/chunks/app/dashboard/quizzes/page.js"
+    ],
+    "/api/quiz/generate/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/api/quiz/generate/route.js"
+    ],
+    "/api/quiz/submit/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/api/quiz/submit/route.js"
+    ],
+    "/dashboard/progress/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/vendor.js",
+      "static/chunks/main-app.js",
+      "static/chunks/common.js",
+      "static/chunks/app/dashboard/progress/page.js"
     ]
   }
 }
